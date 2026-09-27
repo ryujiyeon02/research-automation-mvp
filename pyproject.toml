@@ -1,0 +1,35 @@
+[project]
+name = "research-automation"
+version = "0.1.0"
+description = "근거 추적형 경제·기업공시 리서치 자동화 MVP"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "beautifulsoup4>=4.12,<5",
+  "httpx>=0.27,<1",
+  "pydantic>=2.8,<3",
+  "python-dotenv>=1.0,<2",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8,<9",
+  "ruff>=0.9,<1",
+]
+
+
+[tool.uv]
+# 배포용 라이브러리가 아닌 로컬 앱이므로 프로젝트 자체는 설치하지 않습니다.
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+# Python 3.9 호환성을 유지하므로 PEP 604/내장 제네릭 강제 변환은 제외합니다.
+ignore = ["PYI034", "UP006", "UP035", "UP045"]
