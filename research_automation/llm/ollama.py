@@ -18,62 +18,13 @@ SYSTEM_PROMPT = """당신은 경제·기업 문서의 인과 주장 추출기입
 단순 동시 발생이나 상관관계는 인과관계로 바꾸지 마세요.
 인과 주장이 없으면 claims를 빈 배열로 반환하세요.
 direction과 horizon이 불명확하면 unknown을 사용하세요.
+modality는 실제 발생한 서술은 observed, 전망은 forecast, 가능성은 possible,
+명시적 조건문은 conditional, 불확실성을 강조하면 uncertain로 분류하세요.
 confidence는 문장 내 인과 표현이 얼마나 명시적인지에 대한 점수이며 진실 확률이 아닙니다.
-"""
+반드시 주어진 JSON Schema에 맞는 JSON만 반환하세요.
+""".strip()
 
-CLAIMS_SCHEMA: Dict[str, Any] = {
-    "name": "causal_claims",
-    "strict": True,
-    "schema": {
-        "type": "object",
-        "properties": {
-            "claims": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "cause_variable": {"type": "string"},
-                        "effect_variable": {"type": "string"},
-                        "direction": {
-                            "type": "string",
-                            "enum": ["increase", "decrease", "mixed", "unknown"],
-                        },
-                        "transmission_channel": {"type": "string"},
-                        "horizon": {
-                            "type": "string",
-                            "enum": ["immediate", "short", "medium", "long", "unknown"],
-                        },
-                        "modality": {
-                            "type": "string",
-                            "enum": [
-                                "observed",
-                                "forecast",
-                                "possible",
-                                "conditional",
-                                "uncertain",
-                            ],
-                        },
-                        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
-                        "evidence_text": {"type": "string"},
-                    },
-                    "required": [
-                        "cause_variable",
-                        "effect_variable",
-                        "direction",
-                        "transmission_channel",
-                        "horizon",
-                        "modality",
-                        "confidence",
-                        "evidence_text",
-                    ],
-                    "additionalProperties": False,
-                },
-            }
-        },
-        "required": ["claims"],
-        "additionalProperties": False,
-    },
-}
+CLAIMS_SCHEMA: Dict[str, Any] = ClaimsEnvelope.model_json_schema()
 
 
 @dataclass(frozen=True)
@@ -150,27 +101,28 @@ def filter_grounded_claims(envelope: ClaimsEnvelope, source_text: str) -> Claims
     return ClaimsEnvelope(claims=grounded)
 
 
-class ClovaClient:
+class OllamaClient:
     def __init__(
         self,
-        api_key: str,
         model: str,
-        base_url: str,
-        timeout_seconds: float = 60.0,
+        base_url: str = "http://127.0.0.1:11434",
+        timeout_seconds: float = 180.0,
+        transport: Optional[httpx.BaseTransport] = None,
     ) -> None:
-        if not api_key:
-            raise ValueError("CLOVA_API_KEY is not configured")
-        self.model = model
+        if not model.strip():
+            raise ValueError("OLLAMA_MODEL is not configured")
+        self.model = model.strip()
         self.base_url = base_url.rstrip("/")
         self._client = httpx.Client(
-            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+            base_url=self.base_url,
             timeout=timeout_seconds,
+            transport=transport,
         )
 
     def close(self) -> None:
         self._client.close()
 
-    def __enter__(self) -> ClovaClient:
+    def __enter__(self) -> OllamaClient:
         return self
 
     def __exit__(self, *_args: object) -> None:
@@ -178,30 +130,53 @@ class ClovaClient:
 
     def extract_claims(self, text: str, max_chars: int = 12_000) -> ExtractionResult:
         excerpt = select_relevant_text(text, max_chars=max_chars)
+        if not excerpt:
+            return ExtractionResult(
+                envelope=ClaimsEnvelope(claims=[]),
+                input_tokens=0,
+                output_tokens=0,
+            )
+
         payload = {
             "model": self.model,
             "messages": [
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": excerpt},
             ],
-            "temperature": 0,
-            "max_completion_tokens": 1_500,
-            "response_format": {"type": "json_schema", "json_schema": CLAIMS_SCHEMA},
+            "stream": False,
+            "think": False,
+            "format": CLAIMS_SCHEMA,
+            "options": {
+                "temperature": 0,
+                "num_ctx": 8_192,
+                "num_predict": 1_500,
+            },
         }
-        response = self._client.post(f"{self.base_url}/chat/completions", json=payload)
-        response.raise_for_status()
+        try:
+            response = self._client.post("/api/chat", json=payload)
+            response.raise_for_status()
+        except httpx.ConnectError as exc:
+            raise RuntimeError(
+                f"Ollama에 연결할 수 없습니다: {self.base_url}. Ollama가 실행 중인지 확인하세요."
+            ) from exc
+        except httpx.HTTPStatusError as exc:
+            try:
+                detail = response.json().get("error", response.text)
+            except (json.JSONDecodeError, AttributeError):
+                detail = response.text
+            raise RuntimeError(f"Ollama 요청 실패 ({response.status_code}): {detail}") from exc
+
         data = response.json()
-        content = data["choices"][0]["message"]["content"]
+        content = data["message"]["content"]
         if isinstance(content, dict):
             parsed = ClaimsEnvelope.model_validate(content)
         else:
             parsed = ClaimsEnvelope.model_validate_json(str(content))
         grounded = filter_grounded_claims(parsed, excerpt)
-        usage = data.get("usage") or {}
         return ExtractionResult(
             envelope=grounded,
-            input_tokens=usage.get("prompt_tokens") or usage.get("input_tokens"),
-            output_tokens=usage.get("completion_tokens") or usage.get("output_tokens"),
+            input_tokens=data.get("prompt_eval_count"),
+            output_tokens=data.get("eval_count"),
             rejected_claims=len(parsed.claims) - len(grounded.claims),
         )
 

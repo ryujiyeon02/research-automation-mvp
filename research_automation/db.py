@@ -214,3 +214,75 @@ def log_llm_usage(
                 output_tokens,
             ),
         )
+
+
+def upsert_market_prices(path: Path, prices: Iterable[Dict[str, Any]]) -> int:
+    """같은 종목·시각·출처는 최신 값으로 덮어씁니다 (증권사가 과거 시세를 고쳐 내려줄 수 있음)."""
+    written = 0
+    with connect(path) as connection:
+        for price in prices:
+            connection.execute(
+                """
+                INSERT INTO market_prices (
+                    security_id, observed_at, open, high, low, close, volume, currency, source
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(security_id, observed_at, source) DO UPDATE SET
+                    open = excluded.open,
+                    high = excluded.high,
+                    low = excluded.low,
+                    close = excluded.close,
+                    volume = excluded.volume,
+                    currency = excluded.currency,
+                    collected_at = CURRENT_TIMESTAMP
+                """,
+                (
+                    price["security_id"],
+                    price["observed_at"],
+                    price.get("open"),
+                    price.get("high"),
+                    price.get("low"),
+                    price.get("close"),
+                    price.get("volume"),
+                    price.get("currency"),
+                    price["source"],
+                ),
+            )
+            written += 1
+    return written
+
+
+def upsert_observations(path: Path, observations: Iterable[Dict[str, Any]]) -> int:
+    written = 0
+    with connect(path) as connection:
+        for item in observations:
+            # SQLite UNIQUE 는 NULL 끼리 같다고 보지 않으므로 vintage_date 가 없을 때는 먼저 지웁니다.
+            if item.get("vintage_date") is None:
+                connection.execute(
+                    """
+                    DELETE FROM observations
+                    WHERE variable_id = ? AND observation_date = ? AND source = ?
+                        AND vintage_date IS NULL
+                    """,
+                    (item["variable_id"], item["observation_date"], item["source"]),
+                )
+            connection.execute(
+                """
+                INSERT INTO observations (
+                    variable_id, observation_date, value, unit, source, vintage_date
+                ) VALUES (?, ?, ?, ?, ?, ?)
+                ON CONFLICT(variable_id, observation_date, source, vintage_date) DO UPDATE SET
+                    value = excluded.value,
+                    unit = excluded.unit,
+                    collected_at = CURRENT_TIMESTAMP
+                """,
+                (
+                    item["variable_id"],
+                    item["observation_date"],
+                    item.get("value"),
+                    item.get("unit"),
+                    item["source"],
+                    item.get("vintage_date"),
+                ),
+            )
+            written += 1
+    return written

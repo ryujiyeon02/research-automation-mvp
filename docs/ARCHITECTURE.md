@@ -14,7 +14,7 @@
 관련 문단 선택
       │
       ▼
-CLOVA 구조화 추출 ───────── causal_claims
+Ollama 구조화 추출 ──────── causal_claims
       │                         │
       │                         ├─ 원문 근거
       │                         ├─ 출처·발표시각
@@ -56,7 +56,7 @@ ECOS/FRED/KRX/증권사 수치 ─ observations / market_prices
 
 ## 단계별 확장
 
-1. SEC EDGAR 읽기 전용 수집과 CLOVA 추출
+1. SEC EDGAR 읽기 전용 수집과 Ollama 로컬 추출
 2. OpenDART 및 KRX 일별 데이터
 3. ECOS·FRED 거시지표와 발표시점 정렬
 4. 증권사 한 곳의 시세 API

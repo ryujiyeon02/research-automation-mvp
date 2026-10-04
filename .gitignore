@@ -9,6 +9,7 @@ __pycache__/
 .ruff_cache/
 .coverage
 htmlcov/
+graphify-out/
 
 .DS_Store
 .idea/
@@ -19,4 +20,3 @@ logs/
 *.db
 *.sqlite
 *.sqlite3
-
