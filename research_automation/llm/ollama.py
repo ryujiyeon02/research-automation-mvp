@@ -149,7 +149,9 @@ class OllamaClient:
             "options": {
                 "temperature": 0,
                 "num_ctx": 8_192,
-                "num_predict": 1_500,
+                # 긴 공시에서 여러 관계가 추출되면 1,500 토큰 안에서 JSON이
+                # 중간에 잘릴 수 있다. 로컬 추론이므로 완결성을 우선한다.
+                "num_predict": 3_000,
             },
         }
         try:

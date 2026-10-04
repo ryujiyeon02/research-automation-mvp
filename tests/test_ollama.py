@@ -54,7 +54,7 @@ def test_ollama_client_uses_json_schema_and_records_usage() -> None:
         assert payload["format"]["type"] == "object"
         assert payload["options"]["temperature"] == 0
         assert payload["options"]["num_ctx"] == 8_192
-        assert payload["options"]["num_predict"] == 1_500
+        assert payload["options"]["num_predict"] == 3_000
         content = ClaimsEnvelope(
             claims=[make_claim("Higher input costs reduced operating margin.")]
         ).model_dump_json()
