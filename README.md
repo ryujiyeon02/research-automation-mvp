@@ -70,6 +70,29 @@ uv run python -m research_automation extract-claims --document-id 1
 
 추출 명령은 Ollama를 로컬로 호출합니다. 결과에는 원인·결과·방향·전달경로·시차·확실성·원문 근거가 저장됩니다.
 
+### SEC가 403을 반환할 때
+
+연락처를 포함한 User-Agent와 올바른 API 주소를 사용해도 SEC 보안 필터가 요청을 거부할 수 있습니다. 현재 환경에서는 Chrome에서 같은 주소가 열리는 것을 확인했습니다. 수집기는 연락처만 설정한 경우 프로그램 이름을 자동으로 붙이며, 단일 클라이언트의 요청 간격은 기본 0.25초로 제한합니다. 여러 클라이언트를 병렬로 실행하지 마세요.
+
+직접 호출이 차단되면 Chrome에서 공식 공시 목록 JSON과 필요한 공시 HTML을 같은 폴더에 저장한 뒤 가져올 수 있습니다. 이 모드는 네트워크를 호출하지 않으며 **저장 시점의 자료**를 읽습니다. 새 공시는 브라우저에서 파일을 갱신해야 하므로 무인 정기 수집과는 구분합니다.
+
+1. 공시 목록: `https://data.sec.gov/submissions/CIK0000320193.json`을 전체 파일 `CIK0000320193.json`으로 저장합니다.
+2. `sec-list --browser-dir`로 공식 원문 URL을 확인합니다.
+3. 원문 URL을 Chrome에서 열고 '페이지 저장'으로 같은 폴더에 저장합니다. 파일명은 원래 이름(예: `aapl-20260926.html`) 또는 공시번호(예: `0000320193-26-000026.html`)를 사용합니다. 원본 URL 주석이 보존된 HTML이 필요합니다.
+4. 저장한 유형과 개수에 맞춰 가져옵니다.
+
+```bash
+uv run python -m research_automation sec-list --cik 320193 \
+  --forms 10-K,8-K --limit 2 --browser-dir data/sec_browser/2026-11-04
+
+uv run python -m research_automation sec-ingest --cik 320193 \
+  --forms 10-K,8-K --limit 2 --browser-dir data/sec_browser/2026-11-04
+```
+
+가져올 때 JSON의 CIK·배열 길이, HTML의 저장 원본 URL·공시 유형·차단 문구·인코딩을 확인합니다. 원본 URL 주석은 파일 간 일치 여부를 확인하는 수단이며 진본 인증 수단은 아닙니다. 모든 대상 파일을 검증한 뒤 DB에 기록합니다. 원문 파일은 `data/` 아래에 보존하고, DB에는 공식 URL·공시번호·발표일·정리된 전체 텍스트·SHA-256을 저장합니다. 수집 출처는 `sec_edgar_browser`로 표시해 직접 API 수집과 구분합니다.
+
+실행 기록과 한계는 [docs/SEC_ACCESS.md](docs/SEC_ACCESS.md)에 있습니다.
+
 ## 메리츠증권 시세 수집 (읽기 전용)
 
 `.env`에 `MERITZ_APP_KEY`, `MERITZ_APP_SECRET`을 넣으면 메리츠 Open API로 시세를 `market_prices`에, 투자자별 순매수를 `observations`에 저장합니다. 포털에 등록한 IP에서만 호출됩니다.
@@ -99,16 +122,17 @@ uv run python -m research_automation meritz-investors --code 005930 --start 2026
 
 세부 구조는 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), 데이터 소스 범위는 [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md)를 참고하세요.
 
-## 현재 검증 범위 (2026-10-04 기준)
+## 현재 검증 범위 (2026-11-04 기준)
 
 | 항목 | 상태 |
 | --- | --- |
-| 단위 테스트 | `uv run pytest` 19개 통과. SEC·Ollama·메리츠·DB 로직을 외부 요금 없이 검증 |
+| 단위 테스트 | `uv run pytest` 31개 통과. 외부 서버 응답을 대신한 테스트이며, 실제 호출 결과와 별도 |
 | 근거 없는 주장 폐기 | LLM이 반환한 `evidence_text`가 원문에 없으면 버리는 필터를 테스트로 확인 (`tests/test_ollama.py`) |
 | 비밀키 노출 방지 | `doctor` 명령이 키 값이 아니라 설정 여부만 반환하는지 테스트로 확인 |
-| SEC EDGAR 실제 호출 | **미검증** — 로컬 DB에 수집된 문서 없음 |
-| Ollama `qwen3.5:9b` 실제 호출 | **검증** — 2026-10-04 로컬 스모크 테스트에서 인과 주장 2개를 추출·저장하고 `provider=ollama`, 모델, 입력·출력 토큰 기록을 확인. 정확도 벤치마크는 아님 |
-| 메리츠 Open API 수집기 | 단위 테스트 9개 (`tests/test_meritz.py`): 주문 경로 차단, 토큰 재사용, 호출 한도 재시도, 응답 파싱, 저장 중복 방지. 실제 호출은 **미검증** |
+| SEC 직접 HTTP 호출 | **차단 확인** — 2026-11-04 신원 헤더를 포함한 JSON·원문·HTTP/2·공식 일괄 자료 요청에서 403. 정확한 차단 조건은 미확인 |
+| SEC 브라우저 자료 가져오기 | **실제 검증** — Chrome에서 공시 목록 1,002건을 읽고 최신 Apple 10-K·8-K 전체 원문을 저장, DB 문서 ID 6·7로 가져오기 및 해시 대조 완료. 브라우저 저장 단계는 운영자의 조작 또는 Codex 브라우저 도구 필요 |
+| Ollama `qwen3.5:9b` 실제 호출 | **과거 실행 확인** — 2026-10-04~05 실행 기록과 추출 결과가 남아 있음. 이후 용량 확보를 위해 프로그램·모델을 삭제했으므로 현재 로컬 추출 실행 불가. 정확도 벤치마크는 아님 |
+| 메리츠 Open API 수집기 | **실제 조회 검증** — 2026-11-04 토큰 발급, 삼성전자 일봉 2건·Apple 일봉 2건·삼성전자 수급 12건 정상 수신(조회 기간 11월 2~3일). 해당 실행은 DB에 저장하지 않음. 해외 분봉 실제 호출은 미검증 |
 | OpenDART·KRX·ECOS·FRED | 설계만 있음, 미구현 |
 
-실제 외부 서비스 연동을 확인하기 전까지는 이 저장소를 "근거 추적 설계와 테스트가 있는 MVP"로만 소개합니다.
+전체 뉴스 자동 수집·ECOS/FRED 교차검증·브리핑 정기 생성은 아직 미구현입니다. 기존 브리핑의 `analyst_reviewed`는 당시 Codex가 붙인 검토 상태이며 사용자 또는 독립 분석가의 검수를 증명하지 않습니다. 구현·실행·검증 범위를 구분한 MVP로 소개합니다.

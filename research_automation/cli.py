@@ -3,11 +3,16 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from pathlib import Path
 from typing import Iterable, List
 
 from research_automation import db
 from research_automation.collectors.meritz import MeritzClient, date_range_args
-from research_automation.collectors.sec_edgar import SECEdgarClient
+from research_automation.collectors.sec_edgar import (
+    SECEdgarClient,
+    load_browser_document,
+    load_browser_filings,
+)
 from research_automation.config import Settings, load_settings
 from research_automation.llm.ollama import PROMPT_VERSION, OllamaClient, result_as_json
 
@@ -43,9 +48,13 @@ def command_doctor(settings: Settings, _args: argparse.Namespace) -> None:
 
 
 def command_sec_list(settings: Settings, args: argparse.Namespace) -> None:
-    _require_sec(settings)
-    with SECEdgarClient(settings.sec_user_agent) as client:
-        filings = client.list_filings(args.cik, forms=args.forms, limit=args.limit)
+    if args.browser_dir is not None:
+        filings = load_browser_filings(args.browser_dir, args.cik, args.forms, args.limit)
+        print(f"source=browser_saved_snapshot directory={args.browser_dir}", file=sys.stderr)
+    else:
+        _require_sec(settings)
+        with SECEdgarClient(settings.sec_user_agent) as client:
+            filings = client.list_filings(args.cik, forms=args.forms, limit=args.limit)
     for filing in filings:
         print(
             json.dumps(
@@ -64,15 +73,21 @@ def command_sec_list(settings: Settings, args: argparse.Namespace) -> None:
 
 
 def command_sec_ingest(settings: Settings, args: argparse.Namespace) -> None:
-    _require_sec(settings)
+    if args.browser_dir is not None:
+        filings = load_browser_filings(args.browser_dir, args.cik, args.forms, args.limit)
+        # 모든 대상 파일을 검증한 뒤에 DB를 업데이트한다.
+        documents = [load_browser_document(args.browser_dir, item) for item in filings]
+        print(f"source=browser_saved_snapshot directory={args.browser_dir}", file=sys.stderr)
+    else:
+        _require_sec(settings)
+        with SECEdgarClient(settings.sec_user_agent) as client:
+            filings = client.list_filings(args.cik, forms=args.forms, limit=args.limit)
+            documents = [client.fetch_document(item) for item in filings]
     db.init_db(settings.database_path)
     stored = []
-    with SECEdgarClient(settings.sec_user_agent) as client:
-        filings = client.list_filings(args.cik, forms=args.forms, limit=args.limit)
-        for filing in filings:
-            document = client.fetch_document(filing)
-            document_id = db.upsert_document(settings.database_path, document)
-            stored.append((document_id, filing.form, filing.accession_number))
+    for filing, document in zip(filings, documents):
+        document_id = db.upsert_document(settings.database_path, document)
+        stored.append((document_id, filing.form, filing.accession_number))
     for document_id, form, accession in stored:
         print(f"stored document_id={document_id} form={form} accession={accession}")
 
@@ -162,12 +177,18 @@ def build_parser() -> argparse.ArgumentParser:
     sec_list_parser.add_argument("--cik", required=True)
     sec_list_parser.add_argument("--forms", type=_forms, default=_forms("10-K,10-Q,8-K"))
     sec_list_parser.add_argument("--limit", type=int, default=20)
+    sec_list_parser.add_argument(
+        "--browser-dir", type=Path, help="브라우저에서 저장한 SEC JSON·HTML 폴더 (네트워크 호출 없음)"
+    )
     sec_list_parser.set_defaults(handler=command_sec_list)
 
     sec_ingest_parser = subparsers.add_parser("sec-ingest", help="SEC 공시 원문 저장")
     sec_ingest_parser.add_argument("--cik", required=True)
     sec_ingest_parser.add_argument("--forms", type=_forms, default=_forms("10-K,10-Q,8-K"))
     sec_ingest_parser.add_argument("--limit", type=int, default=3)
+    sec_ingest_parser.add_argument(
+        "--browser-dir", type=Path, help="브라우저에서 저장한 SEC JSON·HTML 폴더 (네트워크 호출 없음)"
+    )
     sec_ingest_parser.set_defaults(handler=command_sec_ingest)
 
     extract_parser = subparsers.add_parser(
