@@ -31,13 +31,16 @@ def main():
             # 요청한 기간 밖의 행은 저장하지 않습니다.
             rows = [row for row in rows if universe["start"] <= row["observed_at"] <= universe["as_of"]]
             written = db.upsert_market_prices(settings.database_path, rows)
-            (output / (security["code"] + "_meritz.json")).write_text(
+            (output / (security["code"] + "_meritz_regular.json")).write_text(
                 json.dumps(rows, ensure_ascii=False, indent=2)
             )
             record = {
                 **security,
-                "source": "meritz",
-                "market": "J",
+                "source": "meritz_krx_regular_adjusted",
+                "market": "TJ",
+                "exch_use_yn": "Y",
+                "close_basis": "KRX regular session",
+                "volume_scope": "KRX and NXT combined",
                 "mod_stpr_cls_code": "0",
                 "rows_saved": written,
                 "first_date": rows[0]["observed_at"] if rows else None,
@@ -45,7 +48,7 @@ def main():
                 "collected_at": datetime.now(timezone.utc).isoformat(),
             }
             receipt.append(record)
-            (output / "price_collection.json").write_text(
+            (output / "price_collection_regular.json").write_text(
                 json.dumps(receipt, ensure_ascii=False, indent=2)
             )
             print(json.dumps(record, ensure_ascii=False), flush=True)

@@ -145,7 +145,8 @@ def command_meritz_daily(settings: Settings, args: argparse.Namespace) -> None:
             prices = client.overseas_daily(args.symbol, args.exchange, start, end)
     written = db.upsert_market_prices(settings.database_path, prices)
     span = f"{prices[0]['observed_at']} ~ {prices[-1]['observed_at']}" if prices else "no rows"
-    print(f"stored {written} daily bars ({span}) source=meritz")
+    source = prices[0]["source"] if prices else "no rows"
+    print(f"stored {written} daily bars ({span}) source={source}")
 
 
 def command_meritz_minutes(settings: Settings, args: argparse.Namespace) -> None:

@@ -71,7 +71,15 @@
     "kis_daily_bars_saved": 4,
     "domestic_dates": ["2026-11-02", "2026-11-03", "2026-11-04"],
     "us_dates": ["2026-11-02", "2026-11-03"],
-    "domestic_return_crosscheck": "unresolved_previous_close_discrepancy",
+    "domestic_return_crosscheck": "resolved_session_basis_for_005930_and_000660",
+    "regular_session_correction": {
+      "additional_rows_saved": 4,
+      "market": "TJ",
+      "exch_use_yn": "Y",
+      "source": "meritz_krx_regular_adjusted",
+      "original_discrepancy": "J included after-market last trades; KRX regular closes require TJ and Y",
+      "verification_document": "docs/PRICE_SESSIONS.md"
+    },
     "orders_submitted": 0
   },
   "ecos_fred_cross_validation_completed": false,

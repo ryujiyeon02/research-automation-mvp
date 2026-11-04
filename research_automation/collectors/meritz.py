@@ -316,13 +316,26 @@ class MeritzClient:
     def domestic_daily(
         self, code: str, start: dt.date, end: dt.date, adjusted_code: str = "0"
     ) -> List[Dict[str, Any]]:
+        """KRX 정규장 OHLC와 KRX+NXT 통합 거래량을 조회합니다.
+
+        J에서는 exch_use_yn을 Y로 지정해도 애프터 포함 가격이 반환됩니다.
+        정규장 가격은 TJ와 Y를 함께 사용해야 합니다. 두 거래소 통합 거래량을
+        KRX 단독 거래량으로 해석하지 않도록 출처를 별도로 기록합니다.
+        """
         params = {
-            "mrkt_div_code": "J",
+            "mrkt_div_code": "TJ",
+            "exch_use_yn": "Y",
             "iscd": normalize_code(code),
             "mod_stpr_cls_code": adjusted_code,
         }
         rows = self._daily_range(DOMESTIC_DAILY_PATH, params, start, end)
-        return parse_domestic_daily(rows, code)
+        prices = parse_domestic_daily(rows, code)
+        for price in prices:
+            price["source"] = (
+                "meritz_krx_regular_adjusted" if adjusted_code == "0"
+                else "meritz_krx_regular_unadjusted"
+            )
+        return prices
 
     def domestic_investors(self, code: str, start: dt.date, end: dt.date) -> List[Dict[str, Any]]:
         params = {

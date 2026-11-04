@@ -96,10 +96,33 @@ def test_domestic_daily_issues_token_once_and_parses() -> None:
     assert market_call.headers["authorization"] == "Bearer tok"
     assert len(market_call.headers["mac_address"]) == 12
     assert market_call.url.params["iscd"] == "005930"
+    assert market_call.url.params["mrkt_div_code"] == "TJ"
+    assert market_call.url.params["exch_use_yn"] == "Y"
     assert market_call.url.params["from"] == "20260901"
     assert [p["observed_at"] for p in prices] == ["2026-09-09", "2026-09-10"]
     assert prices[1]["close"] == 8389000.0
     assert prices[1]["security_id"] == "KRX:005930"
+    assert prices[1]["source"] == "meritz_krx_regular_adjusted"
+
+
+def test_regular_session_avoids_after_market_sign_reversal() -> None:
+    def handler(request):
+        if request.url.path == "/oauth2/token":
+            return httpx.Response(200, json={"access_token": "tok", "expires_in": 86400})
+        regular = (
+            request.url.params.get("mrkt_div_code") == "TJ"
+            and request.url.params.get("exch_use_yn") == "Y"
+        )
+        previous_close = 439000 if regular else 446500
+        return httpx.Response(200, json={"rsp_cd": "0000", "data": [
+            {"date": "20261103", "stck_clpr": previous_close},
+            {"date": "20261104", "stck_clpr": 445500},
+        ]})
+
+    with make_client(handler, []) as client:
+        prices = client.domestic_daily("267260", dt.date(2026, 11, 3), dt.date(2026, 11, 4))
+    change = prices[-1]["close"] / prices[-2]["close"] - 1
+    assert change == pytest.approx(0.0148063781)
 
 
 def test_rate_limit_code_is_retried(monkeypatch) -> None:
