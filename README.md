@@ -50,6 +50,8 @@ Ollama 앱 또는 `ollama serve`가 실행 중이면 `extract-claims`가 로컬 
 
 [이차전지·ESS·전력설비 추가 보고서](reports/2026-11-04_sector_brief.md)는 대표 종목 11개와 비교 ETF 2개의 1·5·20·60거래일 가격 흐름을 공식 기업 실적과 함께 정리합니다. 초기 가격 차이의 주원인이 정규장·애프터마켓 기준 혼용임을 확인해 정규장 기준으로 정정했습니다. [가격 계산 결과](reports/2026-11-04_sector_metrics.json)에는 남은 조정가격 차이도 공개합니다. 대상 목록은 `reports/2026-11-04_sector_universe.json`에서 관리합니다.
 
+[수급 추가 보고서](reports/2026-11-04_flow_brief.md)는 최초 보고서의 누락을 보완한 실제 실행 결과입니다. 종목 11개의 20거래일 자료를 메리츠·한투에서 각각 1,320개 관측값으로 저장했습니다. 개인·기관의 수량·금액 일치와 외국인 분류 차이를 구분합니다. [일별 금액·집계 결과](reports/2026-11-04_sector_flows.json)를 함께 보관합니다.
+
 명시된 공개 출처를 다시 수집하고 분석하려면 프로젝트 폴더에서 다음을 실행합니다. 기존 Apple 문서 ID는 각자의 DB에 맞게 출처 목록을 수정해야 합니다. 일부 사이트가 403을 반환하면 실패 기록을 남기고 다음 출처로 넘어갑니다.
 
 ```bash
@@ -61,6 +63,7 @@ uv run python -m scripts.research_pilot reports/2026-11-04_sources.json --stage 
 
 ```bash
 uv run python -m scripts.sector_prices reports/2026-11-04_sector_universe.json
+uv run python -m scripts.sector_flows reports/2026-11-04_sector_universe.json
 uv run python -m scripts.research_pilot reports/2026-11-04_sector_sources.json --stage ingest
 uv run python -m scripts.research_pilot reports/2026-11-04_sector_sources.json --stage extract
 ```
@@ -124,6 +127,8 @@ uv run python -m research_automation sec-ingest --cik 320193 \
 
 국내 일봉은 `TJ`와 `exch_use_yn=Y`로 **KRX 정규장 가격**을 명시해 조회합니다. 거래량은 KRX·NXT 통합 범위입니다. 기존 `J` 조회는 애프터 포함 마지막 체결가를 반환하므로 정규장 일봉과 분리합니다. 출처에도 정규장·수정 여부를 기록합니다. [실제 응답 대조와 남은 차이](docs/PRICE_SESSIONS.md)
 
+투자자별 순매수는 기간 요청이 누적값을 반환하는 것을 실제로 확인했습니다. `meritz-investors`는 하루씩 `from=to`로 조회하며 날짜가 다르거나 필수 값이 없으면 저장하지 않습니다. `scripts.sector_flows`는 가격 자료에 있는 최근 20거래일만 요청합니다. 메리츠 일별 수급의 출처는 `meritz_krx_investor_daily`입니다. 이 스크립트는 메리츠 수집을 재현하며 보고서에 사용한 한투 대조·해석까지 자동 실행하지는 않습니다.
+
 ```bash
 # 국내 일봉 (security_id = KRX:005930)
 uv run python -m research_automation meritz-daily --symbol 005930 --start 2026-09-01
@@ -153,7 +158,8 @@ uv run python -m research_automation meritz-investors --code 005930 --start 2026
 
 | 항목 | 상태 |
 | --- | --- |
-| 단위 테스트 | `uv run pytest` 37개 통과. 외부 서버 응답을 대신한 테스트이며, 실제 호출 결과와 별도 |
+| 단위 테스트 | `uv run pytest` 40개 통과. 외부 서버 응답을 대신한 테스트이며, 실제 호출 결과와 별도 |
+| 투자자별 수급 조회·저장·분석 | **실제 실행 완료** — 최초 보고서에서 누락 후 보완. 11종목 × 20거래일 × 6항목을 메리츠·한투에서 각각 1,320건 저장하고 1·5·20거래일 합계 분석. 외국인 분류 차이·집계 범위는 수급 보고서에 공개 |
 | 근거 없는 주장 폐기 | LLM이 반환한 `evidence_text`가 원문에 없으면 버리는 필터를 테스트로 확인 (`tests/test_ollama.py`) |
 | 비밀키 노출 방지 | `doctor` 명령이 키 값이 아니라 설정 여부만 반환하는지 테스트로 확인 |
 | SEC 직접 HTTP 호출 | **차단 확인** — 2026-11-04 신원 헤더를 포함한 JSON·원문·HTTP/2·공식 일괄 자료 요청에서 403. 정확한 차단 조건은 미확인 |

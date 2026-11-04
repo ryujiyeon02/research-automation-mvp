@@ -337,14 +337,32 @@ class MeritzClient:
             )
         return prices
 
-    def domestic_investors(self, code: str, start: dt.date, end: dt.date) -> List[Dict[str, Any]]:
+    def domestic_investor_day(self, code: str, day: dt.date) -> List[Dict[str, Any]]:
+        """구간 누적값을 일별 값으로 오인하지 않도록 하루만 요청합니다."""
         params = {
             "mrkt_div_code": "J",
             "iscd": normalize_code(code),
-            "from": _ymd(start),
-            "to": _ymd(end),
+            "from": _ymd(day),
+            "to": _ymd(day),
         }
-        return parse_investors(self._get(DOMESTIC_INVESTORS_PATH, params), code)
+        rows = self._get(DOMESTIC_INVESTORS_PATH, params)
+        dated = [row for row in rows if _iso_date(row.get("date"))]
+        if len(dated) > 1 or any(_iso_date(row["date"]) != day.isoformat() for row in dated):
+            raise MeritzApiError("investor response does not match the requested single day")
+        if any(_number(row.get(field)) is None for row in dated for field in INVESTOR_FIELDS):
+            raise MeritzApiError("investor response is missing a required net-flow field")
+        return dated
+
+    def domestic_investors(self, code: str, start: dt.date, end: dt.date) -> List[Dict[str, Any]]:
+        observations = []
+        cursor = start
+        while cursor <= end:
+            daily = parse_investors(self.domestic_investor_day(code, cursor), code)
+            for observation in daily:
+                observation["source"] = "meritz_krx_investor_daily"
+            observations.extend(daily)
+            cursor += dt.timedelta(days=1)
+        return observations
 
     def overseas_daily(
         self, symbol: str, exchange: str, start: dt.date, end: dt.date, adjusted_code: str = "0"

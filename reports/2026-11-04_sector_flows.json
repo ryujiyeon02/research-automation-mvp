@@ -1,0 +1,1771 @@
+{
+  "as_of": "2026-11-04",
+  "market": "KRX J",
+  "primary_source": "kis_krx_investor_daily",
+  "foreign_definition": "Foreign plus other foreign investors, per KIS official documentation",
+  "meritz_crosscheck_source": "meritz_krx_investor_daily",
+  "stocks": 11,
+  "days_per_stock": 20,
+  "meritz_observations_saved": 1320,
+  "kis_observations_saved": 1320,
+  "first_date": "2026-10-07",
+  "last_date": "2026-11-04",
+  "5_day_first_date": "20261029",
+  "meritz_method": "one request per trading day, from=to, to avoid cumulative rows",
+  "amount_unit": "KRW million",
+  "display_conversion": "KRW 100 million = amount / 100",
+  "scope_note": "Market J investor daily data; endpoint does not independently confirm regular-session-only cutoff. Price series uses regular-session closes.",
+  "comparison": [
+    {
+      "code": "373220",
+      "name": "LG에너지솔루션",
+      "dates_compared": 20,
+      "mismatches": {
+        "prsn_ntby_vol": 0,
+        "frgn_ntby_vol": 20,
+        "orgn_ntby_vol": 0,
+        "prsn_ntby_tr_pbmn": 0,
+        "frgn_ntby_tr_pbmn": 20,
+        "orgn_ntby_tr_pbmn": 0
+      }
+    },
+    {
+      "code": "006400",
+      "name": "삼성SDI",
+      "dates_compared": 20,
+      "mismatches": {
+        "prsn_ntby_vol": 0,
+        "frgn_ntby_vol": 20,
+        "orgn_ntby_vol": 0,
+        "prsn_ntby_tr_pbmn": 0,
+        "frgn_ntby_tr_pbmn": 20,
+        "orgn_ntby_tr_pbmn": 0
+      }
+    },
+    {
+      "code": "247540",
+      "name": "에코프로비엠",
+      "dates_compared": 20,
+      "mismatches": {
+        "prsn_ntby_vol": 0,
+        "frgn_ntby_vol": 20,
+        "orgn_ntby_vol": 0,
+        "prsn_ntby_tr_pbmn": 0,
+        "frgn_ntby_tr_pbmn": 20,
+        "orgn_ntby_tr_pbmn": 0
+      }
+    },
+    {
+      "code": "003670",
+      "name": "포스코퓨처엠",
+      "dates_compared": 20,
+      "mismatches": {
+        "prsn_ntby_vol": 0,
+        "frgn_ntby_vol": 20,
+        "orgn_ntby_vol": 0,
+        "prsn_ntby_tr_pbmn": 0,
+        "frgn_ntby_tr_pbmn": 20,
+        "orgn_ntby_tr_pbmn": 0
+      }
+    },
+    {
+      "code": "066970",
+      "name": "엘앤에프",
+      "dates_compared": 20,
+      "mismatches": {
+        "prsn_ntby_vol": 0,
+        "frgn_ntby_vol": 20,
+        "orgn_ntby_vol": 0,
+        "prsn_ntby_tr_pbmn": 0,
+        "frgn_ntby_tr_pbmn": 20,
+        "orgn_ntby_tr_pbmn": 0
+      }
+    },
+    {
+      "code": "178320",
+      "name": "서진시스템",
+      "dates_compared": 20,
+      "mismatches": {
+        "prsn_ntby_vol": 0,
+        "frgn_ntby_vol": 20,
+        "orgn_ntby_vol": 0,
+        "prsn_ntby_tr_pbmn": 0,
+        "frgn_ntby_tr_pbmn": 20,
+        "orgn_ntby_tr_pbmn": 0
+      }
+    },
+    {
+      "code": "010120",
+      "name": "LS ELECTRIC",
+      "dates_compared": 20,
+      "mismatches": {
+        "prsn_ntby_vol": 0,
+        "frgn_ntby_vol": 20,
+        "orgn_ntby_vol": 0,
+        "prsn_ntby_tr_pbmn": 0,
+        "frgn_ntby_tr_pbmn": 20,
+        "orgn_ntby_tr_pbmn": 0
+      }
+    },
+    {
+      "code": "267260",
+      "name": "HD현대일렉트릭",
+      "dates_compared": 20,
+      "mismatches": {
+        "prsn_ntby_vol": 0,
+        "frgn_ntby_vol": 20,
+        "orgn_ntby_vol": 0,
+        "prsn_ntby_tr_pbmn": 0,
+        "frgn_ntby_tr_pbmn": 20,
+        "orgn_ntby_tr_pbmn": 0
+      }
+    },
+    {
+      "code": "298040",
+      "name": "효성중공업",
+      "dates_compared": 20,
+      "mismatches": {
+        "prsn_ntby_vol": 0,
+        "frgn_ntby_vol": 20,
+        "orgn_ntby_vol": 0,
+        "prsn_ntby_tr_pbmn": 0,
+        "frgn_ntby_tr_pbmn": 20,
+        "orgn_ntby_tr_pbmn": 0
+      }
+    },
+    {
+      "code": "103590",
+      "name": "일진전기",
+      "dates_compared": 20,
+      "mismatches": {
+        "prsn_ntby_vol": 0,
+        "frgn_ntby_vol": 20,
+        "orgn_ntby_vol": 0,
+        "prsn_ntby_tr_pbmn": 0,
+        "frgn_ntby_tr_pbmn": 18,
+        "orgn_ntby_tr_pbmn": 0
+      }
+    },
+    {
+      "code": "001440",
+      "name": "대한전선",
+      "dates_compared": 20,
+      "mismatches": {
+        "prsn_ntby_vol": 0,
+        "frgn_ntby_vol": 20,
+        "orgn_ntby_vol": 0,
+        "prsn_ntby_tr_pbmn": 0,
+        "frgn_ntby_tr_pbmn": 20,
+        "orgn_ntby_tr_pbmn": 0
+      }
+    }
+  ],
+  "metrics": [
+    {
+      "code": "373220",
+      "name": "LG에너지솔루션",
+      "group": "셀·ESS",
+      "benchmark": "069500",
+      "daily_krw_million": [
+        {
+          "prsn_ntby_tr_pbmn": -33848.0,
+          "frgn_ntby_tr_pbmn": 9530.0,
+          "orgn_ntby_tr_pbmn": 24567.0,
+          "date": "20261007"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -43818.0,
+          "frgn_ntby_tr_pbmn": 47998.0,
+          "orgn_ntby_tr_pbmn": -2033.0,
+          "date": "20261008"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 1823.0,
+          "frgn_ntby_tr_pbmn": -27156.0,
+          "orgn_ntby_tr_pbmn": 24753.0,
+          "date": "20261012"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -18315.0,
+          "frgn_ntby_tr_pbmn": -73511.0,
+          "orgn_ntby_tr_pbmn": 90988.0,
+          "date": "20261013"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -67274.0,
+          "frgn_ntby_tr_pbmn": -20221.0,
+          "orgn_ntby_tr_pbmn": 87810.0,
+          "date": "20261014"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 5963.0,
+          "frgn_ntby_tr_pbmn": -13145.0,
+          "orgn_ntby_tr_pbmn": 7349.0,
+          "date": "20261015"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -13391.0,
+          "frgn_ntby_tr_pbmn": 6075.0,
+          "orgn_ntby_tr_pbmn": 6848.0,
+          "date": "20261016"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -70565.0,
+          "frgn_ntby_tr_pbmn": -59881.0,
+          "orgn_ntby_tr_pbmn": 131741.0,
+          "date": "20261019"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -2379.0,
+          "frgn_ntby_tr_pbmn": -2142.0,
+          "orgn_ntby_tr_pbmn": 3307.0,
+          "date": "20261020"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 2576.0,
+          "frgn_ntby_tr_pbmn": 7168.0,
+          "orgn_ntby_tr_pbmn": -10026.0,
+          "date": "20261021"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 1641.0,
+          "frgn_ntby_tr_pbmn": 13574.0,
+          "orgn_ntby_tr_pbmn": -14956.0,
+          "date": "20261022"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -1502.0,
+          "frgn_ntby_tr_pbmn": 7659.0,
+          "orgn_ntby_tr_pbmn": -5958.0,
+          "date": "20261023"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 3248.0,
+          "frgn_ntby_tr_pbmn": -227.0,
+          "orgn_ntby_tr_pbmn": -3050.0,
+          "date": "20261026"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -9055.0,
+          "frgn_ntby_tr_pbmn": -8749.0,
+          "orgn_ntby_tr_pbmn": 17689.0,
+          "date": "20261027"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 7610.0,
+          "frgn_ntby_tr_pbmn": -36563.0,
+          "orgn_ntby_tr_pbmn": 28811.0,
+          "date": "20261028"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 44682.0,
+          "frgn_ntby_tr_pbmn": 35046.0,
+          "orgn_ntby_tr_pbmn": -79247.0,
+          "date": "20261029"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -14125.0,
+          "frgn_ntby_tr_pbmn": -6844.0,
+          "orgn_ntby_tr_pbmn": 21018.0,
+          "date": "20261030"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 5377.0,
+          "frgn_ntby_tr_pbmn": -20638.0,
+          "orgn_ntby_tr_pbmn": 15165.0,
+          "date": "20261102"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 17011.0,
+          "frgn_ntby_tr_pbmn": -14941.0,
+          "orgn_ntby_tr_pbmn": -2391.0,
+          "date": "20261103"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 17173.0,
+          "frgn_ntby_tr_pbmn": -32855.0,
+          "orgn_ntby_tr_pbmn": 14839.0,
+          "date": "20261104"
+        }
+      ],
+      "1": {
+        "individual": 17173.0,
+        "foreign": -32855.0,
+        "institution": 14839.0,
+        "foreign_plus_institution": -18016.0
+      },
+      "5": {
+        "individual": 70118.0,
+        "foreign": -40232.0,
+        "institution": -30616.0,
+        "foreign_plus_institution": -70848.0
+      },
+      "20": {
+        "individual": -167168.0,
+        "foreign": -189823.0,
+        "institution": 357224.0,
+        "foreign_plus_institution": 167401.0
+      }
+    },
+    {
+      "code": "006400",
+      "name": "삼성SDI",
+      "group": "셀·ESS",
+      "benchmark": "069500",
+      "daily_krw_million": [
+        {
+          "prsn_ntby_tr_pbmn": -6175.0,
+          "frgn_ntby_tr_pbmn": 3548.0,
+          "orgn_ntby_tr_pbmn": 1483.0,
+          "date": "20261007"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -41955.0,
+          "frgn_ntby_tr_pbmn": -11826.0,
+          "orgn_ntby_tr_pbmn": 52281.0,
+          "date": "20261008"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 32015.0,
+          "frgn_ntby_tr_pbmn": -53626.0,
+          "orgn_ntby_tr_pbmn": 20139.0,
+          "date": "20261012"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 50583.0,
+          "frgn_ntby_tr_pbmn": -84741.0,
+          "orgn_ntby_tr_pbmn": 30123.0,
+          "date": "20261013"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -125997.0,
+          "frgn_ntby_tr_pbmn": 25518.0,
+          "orgn_ntby_tr_pbmn": 95257.0,
+          "date": "20261014"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 180093.0,
+          "frgn_ntby_tr_pbmn": -180795.0,
+          "orgn_ntby_tr_pbmn": -2606.0,
+          "date": "20261015"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 66800.0,
+          "frgn_ntby_tr_pbmn": -48115.0,
+          "orgn_ntby_tr_pbmn": -22123.0,
+          "date": "20261016"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -230480.0,
+          "frgn_ntby_tr_pbmn": 109981.0,
+          "orgn_ntby_tr_pbmn": 115832.0,
+          "date": "20261019"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 60510.0,
+          "frgn_ntby_tr_pbmn": -37636.0,
+          "orgn_ntby_tr_pbmn": -22853.0,
+          "date": "20261020"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 95789.0,
+          "frgn_ntby_tr_pbmn": -77544.0,
+          "orgn_ntby_tr_pbmn": -13173.0,
+          "date": "20261021"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 105530.0,
+          "frgn_ntby_tr_pbmn": -44490.0,
+          "orgn_ntby_tr_pbmn": -60434.0,
+          "date": "20261022"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 54361.0,
+          "frgn_ntby_tr_pbmn": -33818.0,
+          "orgn_ntby_tr_pbmn": -19506.0,
+          "date": "20261023"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 5155.0,
+          "frgn_ntby_tr_pbmn": -6459.0,
+          "orgn_ntby_tr_pbmn": 1105.0,
+          "date": "20261026"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -46797.0,
+          "frgn_ntby_tr_pbmn": 8336.0,
+          "orgn_ntby_tr_pbmn": 38775.0,
+          "date": "20261027"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -27663.0,
+          "frgn_ntby_tr_pbmn": -36484.0,
+          "orgn_ntby_tr_pbmn": 63927.0,
+          "date": "20261028"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 24996.0,
+          "frgn_ntby_tr_pbmn": -80346.0,
+          "orgn_ntby_tr_pbmn": 54890.0,
+          "date": "20261029"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -57677.0,
+          "frgn_ntby_tr_pbmn": -34556.0,
+          "orgn_ntby_tr_pbmn": 94365.0,
+          "date": "20261030"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 69419.0,
+          "frgn_ntby_tr_pbmn": -64667.0,
+          "orgn_ntby_tr_pbmn": -5290.0,
+          "date": "20261102"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 159765.0,
+          "frgn_ntby_tr_pbmn": -78918.0,
+          "orgn_ntby_tr_pbmn": -85660.0,
+          "date": "20261103"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -132575.0,
+          "frgn_ntby_tr_pbmn": 53855.0,
+          "orgn_ntby_tr_pbmn": 79817.0,
+          "date": "20261104"
+        }
+      ],
+      "1": {
+        "individual": -132575.0,
+        "foreign": 53855.0,
+        "institution": 79817.0,
+        "foreign_plus_institution": 133672.0
+      },
+      "5": {
+        "individual": 63928.0,
+        "foreign": -204632.0,
+        "institution": 138122.0,
+        "foreign_plus_institution": -66510.0
+      },
+      "20": {
+        "individual": 235697.0,
+        "foreign": -672783.0,
+        "institution": 416349.0,
+        "foreign_plus_institution": -256434.0
+      }
+    },
+    {
+      "code": "247540",
+      "name": "에코프로비엠",
+      "group": "배터리 소재",
+      "benchmark": "229200",
+      "daily_krw_million": [
+        {
+          "prsn_ntby_tr_pbmn": 8212.0,
+          "frgn_ntby_tr_pbmn": -4419.0,
+          "orgn_ntby_tr_pbmn": -3858.0,
+          "date": "20261007"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 8841.0,
+          "frgn_ntby_tr_pbmn": -13288.0,
+          "orgn_ntby_tr_pbmn": 4270.0,
+          "date": "20261008"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 15696.0,
+          "frgn_ntby_tr_pbmn": -6006.0,
+          "orgn_ntby_tr_pbmn": -9767.0,
+          "date": "20261012"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 11337.0,
+          "frgn_ntby_tr_pbmn": -12517.0,
+          "orgn_ntby_tr_pbmn": 1203.0,
+          "date": "20261013"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -2197.0,
+          "frgn_ntby_tr_pbmn": 2254.0,
+          "orgn_ntby_tr_pbmn": -78.0,
+          "date": "20261014"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 10279.0,
+          "frgn_ntby_tr_pbmn": -9112.0,
+          "orgn_ntby_tr_pbmn": -1118.0,
+          "date": "20261015"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -6863.0,
+          "frgn_ntby_tr_pbmn": 7085.0,
+          "orgn_ntby_tr_pbmn": -224.0,
+          "date": "20261016"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -11256.0,
+          "frgn_ntby_tr_pbmn": -2348.0,
+          "orgn_ntby_tr_pbmn": 13677.0,
+          "date": "20261019"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 19888.0,
+          "frgn_ntby_tr_pbmn": -6996.0,
+          "orgn_ntby_tr_pbmn": -13390.0,
+          "date": "20261020"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -3386.0,
+          "frgn_ntby_tr_pbmn": 6153.0,
+          "orgn_ntby_tr_pbmn": -2796.0,
+          "date": "20261021"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 43953.0,
+          "frgn_ntby_tr_pbmn": -30720.0,
+          "orgn_ntby_tr_pbmn": -13339.0,
+          "date": "20261022"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 13469.0,
+          "frgn_ntby_tr_pbmn": -10423.0,
+          "orgn_ntby_tr_pbmn": -3054.0,
+          "date": "20261023"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 6441.0,
+          "frgn_ntby_tr_pbmn": -1278.0,
+          "orgn_ntby_tr_pbmn": -5180.0,
+          "date": "20261026"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -8330.0,
+          "frgn_ntby_tr_pbmn": 4647.0,
+          "orgn_ntby_tr_pbmn": 3591.0,
+          "date": "20261027"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 1966.0,
+          "frgn_ntby_tr_pbmn": -3088.0,
+          "orgn_ntby_tr_pbmn": 1124.0,
+          "date": "20261028"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 8060.0,
+          "frgn_ntby_tr_pbmn": 5051.0,
+          "orgn_ntby_tr_pbmn": -13118.0,
+          "date": "20261029"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 2863.0,
+          "frgn_ntby_tr_pbmn": 939.0,
+          "orgn_ntby_tr_pbmn": -3807.0,
+          "date": "20261030"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 3139.0,
+          "frgn_ntby_tr_pbmn": -4503.0,
+          "orgn_ntby_tr_pbmn": 1357.0,
+          "date": "20261102"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 14508.0,
+          "frgn_ntby_tr_pbmn": -10359.0,
+          "orgn_ntby_tr_pbmn": -4326.0,
+          "date": "20261103"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -15420.0,
+          "frgn_ntby_tr_pbmn": -2584.0,
+          "orgn_ntby_tr_pbmn": 17976.0,
+          "date": "20261104"
+        }
+      ],
+      "1": {
+        "individual": -15420.0,
+        "foreign": -2584.0,
+        "institution": 17976.0,
+        "foreign_plus_institution": 15392.0
+      },
+      "5": {
+        "individual": 13150.0,
+        "foreign": -11456.0,
+        "institution": -1918.0,
+        "foreign_plus_institution": -13374.0
+      },
+      "20": {
+        "individual": 121200.0,
+        "foreign": -91512.0,
+        "institution": -30857.0,
+        "foreign_plus_institution": -122369.0
+      }
+    },
+    {
+      "code": "003670",
+      "name": "포스코퓨처엠",
+      "group": "배터리 소재",
+      "benchmark": "069500",
+      "daily_krw_million": [
+        {
+          "prsn_ntby_tr_pbmn": 57931.0,
+          "frgn_ntby_tr_pbmn": -35593.0,
+          "orgn_ntby_tr_pbmn": -23007.0,
+          "date": "20261007"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -554.0,
+          "frgn_ntby_tr_pbmn": 1897.0,
+          "orgn_ntby_tr_pbmn": -1943.0,
+          "date": "20261008"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 30604.0,
+          "frgn_ntby_tr_pbmn": -18376.0,
+          "orgn_ntby_tr_pbmn": -12323.0,
+          "date": "20261012"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 6537.0,
+          "frgn_ntby_tr_pbmn": 761.0,
+          "orgn_ntby_tr_pbmn": -7851.0,
+          "date": "20261013"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -3913.0,
+          "frgn_ntby_tr_pbmn": -12206.0,
+          "orgn_ntby_tr_pbmn": 16318.0,
+          "date": "20261014"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 15073.0,
+          "frgn_ntby_tr_pbmn": -9824.0,
+          "orgn_ntby_tr_pbmn": -5470.0,
+          "date": "20261015"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 3078.0,
+          "frgn_ntby_tr_pbmn": 4710.0,
+          "orgn_ntby_tr_pbmn": -7887.0,
+          "date": "20261016"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -35310.0,
+          "frgn_ntby_tr_pbmn": 16225.0,
+          "orgn_ntby_tr_pbmn": 19328.0,
+          "date": "20261019"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 18749.0,
+          "frgn_ntby_tr_pbmn": -11907.0,
+          "orgn_ntby_tr_pbmn": -6724.0,
+          "date": "20261020"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -1003.0,
+          "frgn_ntby_tr_pbmn": -5025.0,
+          "orgn_ntby_tr_pbmn": 6209.0,
+          "date": "20261021"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 21180.0,
+          "frgn_ntby_tr_pbmn": -11102.0,
+          "orgn_ntby_tr_pbmn": -10719.0,
+          "date": "20261022"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 5617.0,
+          "frgn_ntby_tr_pbmn": -5243.0,
+          "orgn_ntby_tr_pbmn": -432.0,
+          "date": "20261023"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 1953.0,
+          "frgn_ntby_tr_pbmn": 1822.0,
+          "orgn_ntby_tr_pbmn": -3805.0,
+          "date": "20261026"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -717.0,
+          "frgn_ntby_tr_pbmn": 7970.0,
+          "orgn_ntby_tr_pbmn": -7438.0,
+          "date": "20261027"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -6401.0,
+          "frgn_ntby_tr_pbmn": -2739.0,
+          "orgn_ntby_tr_pbmn": 9144.0,
+          "date": "20261028"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 6717.0,
+          "frgn_ntby_tr_pbmn": -1095.0,
+          "orgn_ntby_tr_pbmn": -5768.0,
+          "date": "20261029"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -558.0,
+          "frgn_ntby_tr_pbmn": -8888.0,
+          "orgn_ntby_tr_pbmn": 9472.0,
+          "date": "20261030"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -3398.0,
+          "frgn_ntby_tr_pbmn": 776.0,
+          "orgn_ntby_tr_pbmn": 3037.0,
+          "date": "20261102"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 3436.0,
+          "frgn_ntby_tr_pbmn": -3567.0,
+          "orgn_ntby_tr_pbmn": 122.0,
+          "date": "20261103"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -25056.0,
+          "frgn_ntby_tr_pbmn": 4886.0,
+          "orgn_ntby_tr_pbmn": 21708.0,
+          "date": "20261104"
+        }
+      ],
+      "1": {
+        "individual": -25056.0,
+        "foreign": 4886.0,
+        "institution": 21708.0,
+        "foreign_plus_institution": 26594.0
+      },
+      "5": {
+        "individual": -18859.0,
+        "foreign": -7888.0,
+        "institution": 28571.0,
+        "foreign_plus_institution": 20683.0
+      },
+      "20": {
+        "individual": 93965.0,
+        "foreign": -86518.0,
+        "institution": -8029.0,
+        "foreign_plus_institution": -94547.0
+      }
+    },
+    {
+      "code": "066970",
+      "name": "엘앤에프",
+      "group": "배터리 소재",
+      "benchmark": "069500",
+      "daily_krw_million": [
+        {
+          "prsn_ntby_tr_pbmn": 10382.0,
+          "frgn_ntby_tr_pbmn": -9273.0,
+          "orgn_ntby_tr_pbmn": -953.0,
+          "date": "20261007"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 12438.0,
+          "frgn_ntby_tr_pbmn": -10259.0,
+          "orgn_ntby_tr_pbmn": -2493.0,
+          "date": "20261008"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 13117.0,
+          "frgn_ntby_tr_pbmn": -10932.0,
+          "orgn_ntby_tr_pbmn": -2271.0,
+          "date": "20261012"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 7021.0,
+          "frgn_ntby_tr_pbmn": -6929.0,
+          "orgn_ntby_tr_pbmn": -158.0,
+          "date": "20261013"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -716.0,
+          "frgn_ntby_tr_pbmn": 7539.0,
+          "orgn_ntby_tr_pbmn": -7406.0,
+          "date": "20261014"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 18312.0,
+          "frgn_ntby_tr_pbmn": -12376.0,
+          "orgn_ntby_tr_pbmn": -6384.0,
+          "date": "20261015"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 42235.0,
+          "frgn_ntby_tr_pbmn": -19413.0,
+          "orgn_ntby_tr_pbmn": -22916.0,
+          "date": "20261016"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -6438.0,
+          "frgn_ntby_tr_pbmn": 10197.0,
+          "orgn_ntby_tr_pbmn": -3839.0,
+          "date": "20261019"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -1478.0,
+          "frgn_ntby_tr_pbmn": -7310.0,
+          "orgn_ntby_tr_pbmn": 8721.0,
+          "date": "20261020"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 3092.0,
+          "frgn_ntby_tr_pbmn": 1358.0,
+          "orgn_ntby_tr_pbmn": -4564.0,
+          "date": "20261021"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 5567.0,
+          "frgn_ntby_tr_pbmn": 4363.0,
+          "orgn_ntby_tr_pbmn": -9502.0,
+          "date": "20261022"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 6488.0,
+          "frgn_ntby_tr_pbmn": 4803.0,
+          "orgn_ntby_tr_pbmn": -11293.0,
+          "date": "20261023"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 91.0,
+          "frgn_ntby_tr_pbmn": 4560.0,
+          "orgn_ntby_tr_pbmn": -4661.0,
+          "date": "20261026"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 3833.0,
+          "frgn_ntby_tr_pbmn": -2393.0,
+          "orgn_ntby_tr_pbmn": -1582.0,
+          "date": "20261027"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -1431.0,
+          "frgn_ntby_tr_pbmn": 137.0,
+          "orgn_ntby_tr_pbmn": 1317.0,
+          "date": "20261028"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 2764.0,
+          "frgn_ntby_tr_pbmn": 150.0,
+          "orgn_ntby_tr_pbmn": -2851.0,
+          "date": "20261029"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 112.0,
+          "frgn_ntby_tr_pbmn": 1398.0,
+          "orgn_ntby_tr_pbmn": -1496.0,
+          "date": "20261030"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -1802.0,
+          "frgn_ntby_tr_pbmn": -3404.0,
+          "orgn_ntby_tr_pbmn": 5168.0,
+          "date": "20261102"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 13014.0,
+          "frgn_ntby_tr_pbmn": -6179.0,
+          "orgn_ntby_tr_pbmn": -6768.0,
+          "date": "20261103"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -4287.0,
+          "frgn_ntby_tr_pbmn": -5203.0,
+          "orgn_ntby_tr_pbmn": 9636.0,
+          "date": "20261104"
+        }
+      ],
+      "1": {
+        "individual": -4287.0,
+        "foreign": -5203.0,
+        "institution": 9636.0,
+        "foreign_plus_institution": 4433.0
+      },
+      "5": {
+        "individual": 9801.0,
+        "foreign": -13238.0,
+        "institution": 3689.0,
+        "foreign_plus_institution": -9549.0
+      },
+      "20": {
+        "individual": 122314.0,
+        "foreign": -59166.0,
+        "institution": -64295.0,
+        "foreign_plus_institution": -123461.0
+      }
+    },
+    {
+      "code": "178320",
+      "name": "서진시스템",
+      "group": "ESS 시스템",
+      "benchmark": "229200",
+      "daily_krw_million": [
+        {
+          "prsn_ntby_tr_pbmn": 243.0,
+          "frgn_ntby_tr_pbmn": -2034.0,
+          "orgn_ntby_tr_pbmn": 1420.0,
+          "date": "20261007"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 1132.0,
+          "frgn_ntby_tr_pbmn": -1841.0,
+          "orgn_ntby_tr_pbmn": 407.0,
+          "date": "20261008"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 8319.0,
+          "frgn_ntby_tr_pbmn": -10209.0,
+          "orgn_ntby_tr_pbmn": 1916.0,
+          "date": "20261012"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -640.0,
+          "frgn_ntby_tr_pbmn": -431.0,
+          "orgn_ntby_tr_pbmn": 1717.0,
+          "date": "20261013"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 4119.0,
+          "frgn_ntby_tr_pbmn": -4541.0,
+          "orgn_ntby_tr_pbmn": 115.0,
+          "date": "20261014"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -441.0,
+          "frgn_ntby_tr_pbmn": -1631.0,
+          "orgn_ntby_tr_pbmn": 251.0,
+          "date": "20261015"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -3184.0,
+          "frgn_ntby_tr_pbmn": -6774.0,
+          "orgn_ntby_tr_pbmn": 8015.0,
+          "date": "20261016"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 4391.0,
+          "frgn_ntby_tr_pbmn": -10735.0,
+          "orgn_ntby_tr_pbmn": 5222.0,
+          "date": "20261019"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 3565.0,
+          "frgn_ntby_tr_pbmn": -3713.0,
+          "orgn_ntby_tr_pbmn": 4117.0,
+          "date": "20261020"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 34918.0,
+          "frgn_ntby_tr_pbmn": -32650.0,
+          "orgn_ntby_tr_pbmn": -2697.0,
+          "date": "20261021"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 1223.0,
+          "frgn_ntby_tr_pbmn": 963.0,
+          "orgn_ntby_tr_pbmn": -2165.0,
+          "date": "20261022"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -902.0,
+          "frgn_ntby_tr_pbmn": 822.0,
+          "orgn_ntby_tr_pbmn": 1373.0,
+          "date": "20261023"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -3066.0,
+          "frgn_ntby_tr_pbmn": 1800.0,
+          "orgn_ntby_tr_pbmn": -1821.0,
+          "date": "20261026"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 1970.0,
+          "frgn_ntby_tr_pbmn": 2136.0,
+          "orgn_ntby_tr_pbmn": -1061.0,
+          "date": "20261027"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -5750.0,
+          "frgn_ntby_tr_pbmn": 4582.0,
+          "orgn_ntby_tr_pbmn": 837.0,
+          "date": "20261028"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 2533.0,
+          "frgn_ntby_tr_pbmn": -2637.0,
+          "orgn_ntby_tr_pbmn": -189.0,
+          "date": "20261029"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 913.0,
+          "frgn_ntby_tr_pbmn": 503.0,
+          "orgn_ntby_tr_pbmn": -1918.0,
+          "date": "20261030"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -718.0,
+          "frgn_ntby_tr_pbmn": 331.0,
+          "orgn_ntby_tr_pbmn": 366.0,
+          "date": "20261102"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 644.0,
+          "frgn_ntby_tr_pbmn": 374.0,
+          "orgn_ntby_tr_pbmn": -1237.0,
+          "date": "20261103"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -2108.0,
+          "frgn_ntby_tr_pbmn": -4335.0,
+          "orgn_ntby_tr_pbmn": 6261.0,
+          "date": "20261104"
+        }
+      ],
+      "1": {
+        "individual": -2108.0,
+        "foreign": -4335.0,
+        "institution": 6261.0,
+        "foreign_plus_institution": 1926.0
+      },
+      "5": {
+        "individual": 1264.0,
+        "foreign": -5764.0,
+        "institution": 3283.0,
+        "foreign_plus_institution": -2481.0
+      },
+      "20": {
+        "individual": 47161.0,
+        "foreign": -70020.0,
+        "institution": 20929.0,
+        "foreign_plus_institution": -49091.0
+      }
+    },
+    {
+      "code": "010120",
+      "name": "LS ELECTRIC",
+      "group": "전력설비",
+      "benchmark": "069500",
+      "daily_krw_million": [
+        {
+          "prsn_ntby_tr_pbmn": 50482.0,
+          "frgn_ntby_tr_pbmn": -54416.0,
+          "orgn_ntby_tr_pbmn": 3592.0,
+          "date": "20261007"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 70962.0,
+          "frgn_ntby_tr_pbmn": -44516.0,
+          "orgn_ntby_tr_pbmn": -26685.0,
+          "date": "20261008"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 22912.0,
+          "frgn_ntby_tr_pbmn": -14990.0,
+          "orgn_ntby_tr_pbmn": -7709.0,
+          "date": "20261012"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 6285.0,
+          "frgn_ntby_tr_pbmn": -11602.0,
+          "orgn_ntby_tr_pbmn": 4249.0,
+          "date": "20261013"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 11662.0,
+          "frgn_ntby_tr_pbmn": -470.0,
+          "orgn_ntby_tr_pbmn": -11421.0,
+          "date": "20261014"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 18126.0,
+          "frgn_ntby_tr_pbmn": -12508.0,
+          "orgn_ntby_tr_pbmn": -6662.0,
+          "date": "20261015"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 12512.0,
+          "frgn_ntby_tr_pbmn": -3130.0,
+          "orgn_ntby_tr_pbmn": -9682.0,
+          "date": "20261016"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -8345.0,
+          "frgn_ntby_tr_pbmn": 12896.0,
+          "orgn_ntby_tr_pbmn": -4413.0,
+          "date": "20261019"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 22201.0,
+          "frgn_ntby_tr_pbmn": -1761.0,
+          "orgn_ntby_tr_pbmn": -21408.0,
+          "date": "20261020"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -16301.0,
+          "frgn_ntby_tr_pbmn": -6667.0,
+          "orgn_ntby_tr_pbmn": 22141.0,
+          "date": "20261021"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -196.0,
+          "frgn_ntby_tr_pbmn": -7462.0,
+          "orgn_ntby_tr_pbmn": 7873.0,
+          "date": "20261022"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 10052.0,
+          "frgn_ntby_tr_pbmn": -1343.0,
+          "orgn_ntby_tr_pbmn": -9104.0,
+          "date": "20261023"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -7608.0,
+          "frgn_ntby_tr_pbmn": 2759.0,
+          "orgn_ntby_tr_pbmn": 5186.0,
+          "date": "20261026"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -13048.0,
+          "frgn_ntby_tr_pbmn": 11283.0,
+          "orgn_ntby_tr_pbmn": 2206.0,
+          "date": "20261027"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -6289.0,
+          "frgn_ntby_tr_pbmn": -2391.0,
+          "orgn_ntby_tr_pbmn": 8506.0,
+          "date": "20261028"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 1614.0,
+          "frgn_ntby_tr_pbmn": -1371.0,
+          "orgn_ntby_tr_pbmn": -254.0,
+          "date": "20261029"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 7024.0,
+          "frgn_ntby_tr_pbmn": -7098.0,
+          "orgn_ntby_tr_pbmn": -183.0,
+          "date": "20261030"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -28579.0,
+          "frgn_ntby_tr_pbmn": 12617.0,
+          "orgn_ntby_tr_pbmn": 16018.0,
+          "date": "20261102"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 10521.0,
+          "frgn_ntby_tr_pbmn": -4037.0,
+          "orgn_ntby_tr_pbmn": -6603.0,
+          "date": "20261103"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 18145.0,
+          "frgn_ntby_tr_pbmn": -28575.0,
+          "orgn_ntby_tr_pbmn": 10692.0,
+          "date": "20261104"
+        }
+      ],
+      "1": {
+        "individual": 18145.0,
+        "foreign": -28575.0,
+        "institution": 10692.0,
+        "foreign_plus_institution": -17883.0
+      },
+      "5": {
+        "individual": 8725.0,
+        "foreign": -28464.0,
+        "institution": 19670.0,
+        "foreign_plus_institution": -8794.0
+      },
+      "20": {
+        "individual": 182132.0,
+        "foreign": -162782.0,
+        "institution": -23661.0,
+        "foreign_plus_institution": -186443.0
+      }
+    },
+    {
+      "code": "267260",
+      "name": "HD현대일렉트릭",
+      "group": "전력설비",
+      "benchmark": "069500",
+      "daily_krw_million": [
+        {
+          "prsn_ntby_tr_pbmn": 94550.0,
+          "frgn_ntby_tr_pbmn": -75424.0,
+          "orgn_ntby_tr_pbmn": -19737.0,
+          "date": "20261007"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 9323.0,
+          "frgn_ntby_tr_pbmn": 7809.0,
+          "orgn_ntby_tr_pbmn": -16491.0,
+          "date": "20261008"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -2374.0,
+          "frgn_ntby_tr_pbmn": 9730.0,
+          "orgn_ntby_tr_pbmn": -7515.0,
+          "date": "20261012"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 439.0,
+          "frgn_ntby_tr_pbmn": 2073.0,
+          "orgn_ntby_tr_pbmn": -1905.0,
+          "date": "20261013"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 8508.0,
+          "frgn_ntby_tr_pbmn": -7076.0,
+          "orgn_ntby_tr_pbmn": -1591.0,
+          "date": "20261014"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -787.0,
+          "frgn_ntby_tr_pbmn": -7362.0,
+          "orgn_ntby_tr_pbmn": 8072.0,
+          "date": "20261015"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -11477.0,
+          "frgn_ntby_tr_pbmn": -2009.0,
+          "orgn_ntby_tr_pbmn": 13521.0,
+          "date": "20261016"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -85.0,
+          "frgn_ntby_tr_pbmn": -4576.0,
+          "orgn_ntby_tr_pbmn": 4788.0,
+          "date": "20261019"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 7681.0,
+          "frgn_ntby_tr_pbmn": 645.0,
+          "orgn_ntby_tr_pbmn": -8172.0,
+          "date": "20261020"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 154.0,
+          "frgn_ntby_tr_pbmn": 5657.0,
+          "orgn_ntby_tr_pbmn": -5804.0,
+          "date": "20261021"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -4624.0,
+          "frgn_ntby_tr_pbmn": 16533.0,
+          "orgn_ntby_tr_pbmn": -11880.0,
+          "date": "20261022"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 7570.0,
+          "frgn_ntby_tr_pbmn": -9189.0,
+          "orgn_ntby_tr_pbmn": 1671.0,
+          "date": "20261023"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 3410.0,
+          "frgn_ntby_tr_pbmn": 3.0,
+          "orgn_ntby_tr_pbmn": -3637.0,
+          "date": "20261026"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 2645.0,
+          "frgn_ntby_tr_pbmn": 8165.0,
+          "orgn_ntby_tr_pbmn": -10849.0,
+          "date": "20261027"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 2712.0,
+          "frgn_ntby_tr_pbmn": -1942.0,
+          "orgn_ntby_tr_pbmn": -239.0,
+          "date": "20261028"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 2241.0,
+          "frgn_ntby_tr_pbmn": 2320.0,
+          "orgn_ntby_tr_pbmn": -4478.0,
+          "date": "20261029"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -4550.0,
+          "frgn_ntby_tr_pbmn": 6542.0,
+          "orgn_ntby_tr_pbmn": -1975.0,
+          "date": "20261030"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -4246.0,
+          "frgn_ntby_tr_pbmn": 1575.0,
+          "orgn_ntby_tr_pbmn": 2656.0,
+          "date": "20261102"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -1163.0,
+          "frgn_ntby_tr_pbmn": 8245.0,
+          "orgn_ntby_tr_pbmn": -6911.0,
+          "date": "20261103"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 8496.0,
+          "frgn_ntby_tr_pbmn": -1681.0,
+          "orgn_ntby_tr_pbmn": -6270.0,
+          "date": "20261104"
+        }
+      ],
+      "1": {
+        "individual": 8496.0,
+        "foreign": -1681.0,
+        "institution": -6270.0,
+        "foreign_plus_institution": -7951.0
+      },
+      "5": {
+        "individual": 778.0,
+        "foreign": 17001.0,
+        "institution": -16978.0,
+        "foreign_plus_institution": 23.0
+      },
+      "20": {
+        "individual": 118423.0,
+        "foreign": -39962.0,
+        "institution": -76746.0,
+        "foreign_plus_institution": -116708.0
+      }
+    },
+    {
+      "code": "298040",
+      "name": "효성중공업",
+      "group": "전력설비",
+      "benchmark": "069500",
+      "daily_krw_million": [
+        {
+          "prsn_ntby_tr_pbmn": 276286.0,
+          "frgn_ntby_tr_pbmn": -223950.0,
+          "orgn_ntby_tr_pbmn": -52854.0,
+          "date": "20261007"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 44200.0,
+          "frgn_ntby_tr_pbmn": -49902.0,
+          "orgn_ntby_tr_pbmn": 4892.0,
+          "date": "20261008"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 70596.0,
+          "frgn_ntby_tr_pbmn": -44199.0,
+          "orgn_ntby_tr_pbmn": -26624.0,
+          "date": "20261012"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 13421.0,
+          "frgn_ntby_tr_pbmn": -11561.0,
+          "orgn_ntby_tr_pbmn": -2434.0,
+          "date": "20261013"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 13909.0,
+          "frgn_ntby_tr_pbmn": -19407.0,
+          "orgn_ntby_tr_pbmn": 5253.0,
+          "date": "20261014"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 66881.0,
+          "frgn_ntby_tr_pbmn": -38684.0,
+          "orgn_ntby_tr_pbmn": -29345.0,
+          "date": "20261015"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 2088.0,
+          "frgn_ntby_tr_pbmn": -28628.0,
+          "orgn_ntby_tr_pbmn": 26044.0,
+          "date": "20261016"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 5638.0,
+          "frgn_ntby_tr_pbmn": -11346.0,
+          "orgn_ntby_tr_pbmn": 5428.0,
+          "date": "20261019"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 111.0,
+          "frgn_ntby_tr_pbmn": 8123.0,
+          "orgn_ntby_tr_pbmn": -8280.0,
+          "date": "20261020"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -8803.0,
+          "frgn_ntby_tr_pbmn": 11928.0,
+          "orgn_ntby_tr_pbmn": -2602.0,
+          "date": "20261021"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -5208.0,
+          "frgn_ntby_tr_pbmn": 6294.0,
+          "orgn_ntby_tr_pbmn": -962.0,
+          "date": "20261022"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 1304.0,
+          "frgn_ntby_tr_pbmn": -527.0,
+          "orgn_ntby_tr_pbmn": -146.0,
+          "date": "20261023"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -4756.0,
+          "frgn_ntby_tr_pbmn": 210.0,
+          "orgn_ntby_tr_pbmn": 4402.0,
+          "date": "20261026"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -13894.0,
+          "frgn_ntby_tr_pbmn": 8159.0,
+          "orgn_ntby_tr_pbmn": 5754.0,
+          "date": "20261027"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -10380.0,
+          "frgn_ntby_tr_pbmn": 2702.0,
+          "orgn_ntby_tr_pbmn": 7767.0,
+          "date": "20261028"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 9518.0,
+          "frgn_ntby_tr_pbmn": 873.0,
+          "orgn_ntby_tr_pbmn": -10218.0,
+          "date": "20261029"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 16582.0,
+          "frgn_ntby_tr_pbmn": -10794.0,
+          "orgn_ntby_tr_pbmn": -6277.0,
+          "date": "20261030"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -47384.0,
+          "frgn_ntby_tr_pbmn": 1721.0,
+          "orgn_ntby_tr_pbmn": 46359.0,
+          "date": "20261102"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 6284.0,
+          "frgn_ntby_tr_pbmn": -2618.0,
+          "orgn_ntby_tr_pbmn": -4392.0,
+          "date": "20261103"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 4993.0,
+          "frgn_ntby_tr_pbmn": -11494.0,
+          "orgn_ntby_tr_pbmn": 5390.0,
+          "date": "20261104"
+        }
+      ],
+      "1": {
+        "individual": 4993.0,
+        "foreign": -11494.0,
+        "institution": 5390.0,
+        "foreign_plus_institution": -6104.0
+      },
+      "5": {
+        "individual": -10007.0,
+        "foreign": -22312.0,
+        "institution": 30862.0,
+        "foreign_plus_institution": 8550.0
+      },
+      "20": {
+        "individual": 441386.0,
+        "foreign": -413100.0,
+        "institution": -32845.0,
+        "foreign_plus_institution": -445945.0
+      }
+    },
+    {
+      "code": "103590",
+      "name": "일진전기",
+      "group": "전력설비",
+      "benchmark": "069500",
+      "daily_krw_million": [
+        {
+          "prsn_ntby_tr_pbmn": -6827.0,
+          "frgn_ntby_tr_pbmn": -9161.0,
+          "orgn_ntby_tr_pbmn": 16144.0,
+          "date": "20261007"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 8156.0,
+          "frgn_ntby_tr_pbmn": -10980.0,
+          "orgn_ntby_tr_pbmn": 2780.0,
+          "date": "20261008"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 2973.0,
+          "frgn_ntby_tr_pbmn": -2288.0,
+          "orgn_ntby_tr_pbmn": -223.0,
+          "date": "20261012"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 1567.0,
+          "frgn_ntby_tr_pbmn": -5994.0,
+          "orgn_ntby_tr_pbmn": 4593.0,
+          "date": "20261013"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -3971.0,
+          "frgn_ntby_tr_pbmn": -5035.0,
+          "orgn_ntby_tr_pbmn": 8982.0,
+          "date": "20261014"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 7918.0,
+          "frgn_ntby_tr_pbmn": 4352.0,
+          "orgn_ntby_tr_pbmn": -12313.0,
+          "date": "20261015"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 7238.0,
+          "frgn_ntby_tr_pbmn": 395.0,
+          "orgn_ntby_tr_pbmn": -7673.0,
+          "date": "20261016"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 4440.0,
+          "frgn_ntby_tr_pbmn": 3776.0,
+          "orgn_ntby_tr_pbmn": -8206.0,
+          "date": "20261019"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 11696.0,
+          "frgn_ntby_tr_pbmn": 3228.0,
+          "orgn_ntby_tr_pbmn": -14943.0,
+          "date": "20261020"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 4569.0,
+          "frgn_ntby_tr_pbmn": 4093.0,
+          "orgn_ntby_tr_pbmn": -8747.0,
+          "date": "20261021"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -1617.0,
+          "frgn_ntby_tr_pbmn": 1649.0,
+          "orgn_ntby_tr_pbmn": 119.0,
+          "date": "20261022"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 467.0,
+          "frgn_ntby_tr_pbmn": -585.0,
+          "orgn_ntby_tr_pbmn": 106.0,
+          "date": "20261023"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -386.0,
+          "frgn_ntby_tr_pbmn": 2702.0,
+          "orgn_ntby_tr_pbmn": -2332.0,
+          "date": "20261026"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -1746.0,
+          "frgn_ntby_tr_pbmn": 1272.0,
+          "orgn_ntby_tr_pbmn": 422.0,
+          "date": "20261027"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 689.0,
+          "frgn_ntby_tr_pbmn": -1073.0,
+          "orgn_ntby_tr_pbmn": 387.0,
+          "date": "20261028"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 1084.0,
+          "frgn_ntby_tr_pbmn": -209.0,
+          "orgn_ntby_tr_pbmn": -873.0,
+          "date": "20261029"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 317.0,
+          "frgn_ntby_tr_pbmn": 861.0,
+          "orgn_ntby_tr_pbmn": -1181.0,
+          "date": "20261030"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -3956.0,
+          "frgn_ntby_tr_pbmn": 2202.0,
+          "orgn_ntby_tr_pbmn": 1803.0,
+          "date": "20261102"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 1581.0,
+          "frgn_ntby_tr_pbmn": -1326.0,
+          "orgn_ntby_tr_pbmn": -273.0,
+          "date": "20261103"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 363.0,
+          "frgn_ntby_tr_pbmn": -525.0,
+          "orgn_ntby_tr_pbmn": 145.0,
+          "date": "20261104"
+        }
+      ],
+      "1": {
+        "individual": 363.0,
+        "foreign": -525.0,
+        "institution": 145.0,
+        "foreign_plus_institution": -380.0
+      },
+      "5": {
+        "individual": -611.0,
+        "foreign": 1003.0,
+        "institution": -379.0,
+        "foreign_plus_institution": 624.0
+      },
+      "20": {
+        "individual": 34555.0,
+        "foreign": -12646.0,
+        "institution": -21283.0,
+        "foreign_plus_institution": -33929.0
+      }
+    },
+    {
+      "code": "001440",
+      "name": "대한전선",
+      "group": "전력설비",
+      "benchmark": "069500",
+      "daily_krw_million": [
+        {
+          "prsn_ntby_tr_pbmn": 51883.0,
+          "frgn_ntby_tr_pbmn": -45478.0,
+          "orgn_ntby_tr_pbmn": -7372.0,
+          "date": "20261007"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 34819.0,
+          "frgn_ntby_tr_pbmn": -32825.0,
+          "orgn_ntby_tr_pbmn": -2049.0,
+          "date": "20261008"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 17113.0,
+          "frgn_ntby_tr_pbmn": -15007.0,
+          "orgn_ntby_tr_pbmn": -2297.0,
+          "date": "20261012"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 4757.0,
+          "frgn_ntby_tr_pbmn": -5186.0,
+          "orgn_ntby_tr_pbmn": -193.0,
+          "date": "20261013"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -1820.0,
+          "frgn_ntby_tr_pbmn": 1373.0,
+          "orgn_ntby_tr_pbmn": 493.0,
+          "date": "20261014"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 2738.0,
+          "frgn_ntby_tr_pbmn": -9033.0,
+          "orgn_ntby_tr_pbmn": 6019.0,
+          "date": "20261015"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 2388.0,
+          "frgn_ntby_tr_pbmn": 549.0,
+          "orgn_ntby_tr_pbmn": -1421.0,
+          "date": "20261016"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -314.0,
+          "frgn_ntby_tr_pbmn": -374.0,
+          "orgn_ntby_tr_pbmn": 627.0,
+          "date": "20261019"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 7251.0,
+          "frgn_ntby_tr_pbmn": -6114.0,
+          "orgn_ntby_tr_pbmn": -720.0,
+          "date": "20261020"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -173.0,
+          "frgn_ntby_tr_pbmn": 2933.0,
+          "orgn_ntby_tr_pbmn": -2750.0,
+          "date": "20261021"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 674.0,
+          "frgn_ntby_tr_pbmn": -647.0,
+          "orgn_ntby_tr_pbmn": -29.0,
+          "date": "20261022"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -557.0,
+          "frgn_ntby_tr_pbmn": 1150.0,
+          "orgn_ntby_tr_pbmn": -631.0,
+          "date": "20261023"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -107.0,
+          "frgn_ntby_tr_pbmn": -925.0,
+          "orgn_ntby_tr_pbmn": 746.0,
+          "date": "20261026"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -3649.0,
+          "frgn_ntby_tr_pbmn": 2687.0,
+          "orgn_ntby_tr_pbmn": 977.0,
+          "date": "20261027"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 2033.0,
+          "frgn_ntby_tr_pbmn": -2237.0,
+          "orgn_ntby_tr_pbmn": 236.0,
+          "date": "20261028"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 3530.0,
+          "frgn_ntby_tr_pbmn": -2790.0,
+          "orgn_ntby_tr_pbmn": -800.0,
+          "date": "20261029"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 3507.0,
+          "frgn_ntby_tr_pbmn": -3219.0,
+          "orgn_ntby_tr_pbmn": -222.0,
+          "date": "20261030"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -1545.0,
+          "frgn_ntby_tr_pbmn": 2123.0,
+          "orgn_ntby_tr_pbmn": -614.0,
+          "date": "20261102"
+        },
+        {
+          "prsn_ntby_tr_pbmn": 9699.0,
+          "frgn_ntby_tr_pbmn": -9756.0,
+          "orgn_ntby_tr_pbmn": 47.0,
+          "date": "20261103"
+        },
+        {
+          "prsn_ntby_tr_pbmn": -2914.0,
+          "frgn_ntby_tr_pbmn": 3453.0,
+          "orgn_ntby_tr_pbmn": 261.0,
+          "date": "20261104"
+        }
+      ],
+      "1": {
+        "individual": -2914.0,
+        "foreign": 3453.0,
+        "institution": 261.0,
+        "foreign_plus_institution": 3714.0
+      },
+      "5": {
+        "individual": 12277.0,
+        "foreign": -10189.0,
+        "institution": -1328.0,
+        "foreign_plus_institution": -11517.0
+      },
+      "20": {
+        "individual": 129313.0,
+        "foreign": -119323.0,
+        "institution": -9692.0,
+        "foreign_plus_institution": -129015.0
+      }
+    }
+  ]
+}

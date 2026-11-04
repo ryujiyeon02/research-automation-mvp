@@ -170,6 +170,44 @@ def test_parse_investors_skips_placeholder_row() -> None:
     assert foreign["unit"] == "KRW mn"
 
 
+def test_investor_range_uses_single_day_requests_to_avoid_cumulative_double_count():
+    def handler(request):
+        if request.url.path == "/oauth2/token":
+            return httpx.Response(200, json={"access_token": "tok", "expires_in": 86400})
+        start, end = request.url.params["from"], request.url.params["to"]
+        assert start == end
+        row = {field: 0 for field in meritz.INVESTOR_FIELDS}
+        row.update(date=start, frgn_ntby_tr_pbmn=54225 if start == "20261104" else -79809)
+        return httpx.Response(200, json={"rsp_cd": "0000", "data": [row]})
+
+    with make_client(handler, []) as client:
+        observations = client.domestic_investors("006400", dt.date(2026, 11, 3), dt.date(2026, 11, 4))
+    amounts = [o["value"] for o in observations if o["variable_id"].endswith("frgn_ntby_tr_pbmn")]
+    assert amounts == [-79809, 54225]
+    assert sum(amounts) == -25584
+    assert {o["source"] for o in observations} == {"meritz_krx_investor_daily"}
+
+
+def test_investor_single_day_rejects_another_date():
+    row = {field: 0 for field in meritz.INVESTOR_FIELDS}
+    row["date"] = "20261103"
+    with (
+        make_client(token_or({"rsp_cd": "0000", "data": [row]}), []) as client,
+        pytest.raises(meritz.MeritzApiError, match="single day"),
+    ):
+        client.domestic_investor_day("006400", dt.date(2026, 11, 4))
+
+
+def test_investor_single_day_missing_value_is_not_treated_as_zero():
+    row = {field: 0 for field in meritz.INVESTOR_FIELDS}
+    row.update(date="20261104", frgn_ntby_tr_pbmn="")
+    with (
+        make_client(token_or({"rsp_cd": "0000", "data": [row]}), []) as client,
+        pytest.raises(meritz.MeritzApiError, match="missing"),
+    ):
+        client.domestic_investor_day("006400", dt.date(2026, 11, 4))
+
+
 def test_parse_overseas_minutes_uses_kst_and_drops_bad_times() -> None:
     rows = [
         {
