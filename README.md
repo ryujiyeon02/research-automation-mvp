@@ -48,11 +48,21 @@ Ollama 앱 또는 `ollama serve`가 실행 중이면 `extract-claims`가 로컬 
 
 [2026-11-04 브리핑](reports/2026-11-04_daily_macro_brief.md)은 중간선거 보도, 통화정책, Apple·AMD 실적과 증권사 시세 조회를 함께 검토한 실행 사례입니다. 구조화 추출은 로컬 모델이 담당했고 최종 보고서의 취합과 오류 검토는 Codex가 수행했습니다. 사용자 검수나 무인 정기 생성으로 표시하지 않습니다.
 
+[이차전지·ESS·전력설비 추가 보고서](reports/2026-11-04_sector_brief.md)는 대표 종목 11개와 비교 ETF 2개의 1·5·20·60거래일 가격 흐름을 공식 기업 실적과 함께 정리합니다. 메리츠·한투·네이버의 과거 가격 차이를 공개한 잠정 분석이며 [가격 계산 결과](reports/2026-11-04_sector_metrics.json)도 함께 보관합니다. 대상 목록은 `reports/2026-11-04_sector_universe.json`에서 관리합니다.
+
 명시된 공개 출처를 다시 수집하고 분석하려면 프로젝트 폴더에서 다음을 실행합니다. 기존 Apple 문서 ID는 각자의 DB에 맞게 출처 목록을 수정해야 합니다. 일부 사이트가 403을 반환하면 실패 기록을 남기고 다음 출처로 넘어갑니다.
 
 ```bash
 uv run python -m scripts.research_pilot reports/2026-11-04_sources.json --stage ingest
 uv run python -m scripts.research_pilot reports/2026-11-04_sources.json --stage extract
+```
+
+추가 업종 자료 수집은 다음과 같이 실행합니다. 수집기 실행은 최종 보고서 작성·의미 검토를 포함하지 않습니다.
+
+```bash
+uv run python -m scripts.sector_prices reports/2026-11-04_sector_universe.json
+uv run python -m scripts.research_pilot reports/2026-11-04_sector_sources.json --stage ingest
+uv run python -m scripts.research_pilot reports/2026-11-04_sector_sources.json --stage extract
 ```
 
 원문과 상세 실행 기록은 Git에서 제외한 `data/research_runs/2026-11-04/`에 저장합니다. 공개 가능한 실행 수치와 제외 이유는 [실행 요약](reports/2026-11-04_run_summary.json)에 있습니다. 날짜별 실행기는 HTTP 공개 문서 수집과 추출만 담당하며, 증권사 조회와 최종 브리핑 작성은 별도로 수행했습니다.
@@ -141,7 +151,7 @@ uv run python -m research_automation meritz-investors --code 005930 --start 2026
 
 | 항목 | 상태 |
 | --- | --- |
-| 단위 테스트 | `uv run pytest` 34개 통과. 외부 서버 응답을 대신한 테스트이며, 실제 호출 결과와 별도 |
+| 단위 테스트 | `uv run pytest` 36개 통과. 외부 서버 응답을 대신한 테스트이며, 실제 호출 결과와 별도 |
 | 근거 없는 주장 폐기 | LLM이 반환한 `evidence_text`가 원문에 없으면 버리는 필터를 테스트로 확인 (`tests/test_ollama.py`) |
 | 비밀키 노출 방지 | `doctor` 명령이 키 값이 아니라 설정 여부만 반환하는지 테스트로 확인 |
 | SEC 직접 HTTP 호출 | **차단 확인** — 2026-11-04 신원 헤더를 포함한 JSON·원문·HTTP/2·공식 일괄 자료 요청에서 403. 정확한 차단 조건은 미확인 |

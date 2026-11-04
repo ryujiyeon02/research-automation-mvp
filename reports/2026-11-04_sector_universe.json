@@ -1,0 +1,20 @@
+{
+  "as_of": "2026-11-04",
+  "start": "2026-07-15",
+  "selection": "관심 분야의 사업 유형을 비교하기 위한 판단 표본이며 전 종목 지수나 추천 목록이 아님",
+  "securities": [
+    {"code": "373220", "name": "LG에너지솔루션", "group": "셀·ESS", "benchmark": "069500"},
+    {"code": "006400", "name": "삼성SDI", "group": "셀·ESS", "benchmark": "069500"},
+    {"code": "247540", "name": "에코프로비엠", "group": "배터리 소재", "benchmark": "229200"},
+    {"code": "003670", "name": "포스코퓨처엠", "group": "배터리 소재", "benchmark": "069500"},
+    {"code": "066970", "name": "엘앤에프", "group": "배터리 소재", "benchmark": "069500"},
+    {"code": "178320", "name": "서진시스템", "group": "ESS 시스템", "benchmark": "229200"},
+    {"code": "010120", "name": "LS ELECTRIC", "group": "전력설비", "benchmark": "069500"},
+    {"code": "267260", "name": "HD현대일렉트릭", "group": "전력설비", "benchmark": "069500"},
+    {"code": "298040", "name": "효성중공업", "group": "전력설비", "benchmark": "069500"},
+    {"code": "103590", "name": "일진전기", "group": "전력설비", "benchmark": "069500"},
+    {"code": "001440", "name": "대한전선", "group": "전력설비", "benchmark": "069500"},
+    {"code": "069500", "name": "KODEX 200", "group": "비교 ETF", "benchmark": "069500"},
+    {"code": "229200", "name": "KODEX 코스닥150", "group": "비교 ETF", "benchmark": "229200"}
+  ]
+}

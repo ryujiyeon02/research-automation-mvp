@@ -1,0 +1,62 @@
+{
+  "research_date": "2026-11-04",
+  "run_id": "2026-11-04-sectors",
+  "sources": [
+    {
+      "id": "lges-2026-q3",
+      "source": "LGES_NEWSROOM",
+      "url": "https://www.lgensol.com/kr/company/newsroom-detail?seq=8794",
+      "title": "LG에너지솔루션 2026년 3분기 실적",
+      "published_at": "2026-11-03",
+      "start": "LG에너지솔루션 2026년 3분기 실적발표",
+      "end": "이전글",
+      "extract": true
+    },
+    {
+      "id": "sdi-2026-q3",
+      "source": "SAMSUNG_SDI_NEWSROOM",
+      "url": "https://www.samsungsdi.co.kr/sdi-now/sdi-news/5065.html",
+      "title": "삼성SDI 2026년 3분기 실적",
+      "published_at": "2026-10-29",
+      "start": "삼성SDI, 2026년 3분기 실적 발표",
+      "end": "목록",
+      "extract": true
+    },
+    {
+      "id": "ls-electric-2026-q3",
+      "source": "LS_GROUP_NEWSROOM",
+      "url": "https://lsholdings.com/ko/media/news/4b72586b48496a526c6d5244452b77446f62746d344f59655a6952323172613133794a69373836766342413d",
+      "title": "LS ELECTRIC 2026년 3분기 실적",
+      "published_at": "2026-10-21",
+      "start": "LS ELECTRIC, 사상 최대 실적으로",
+      "end": "목록",
+      "extract": true
+    },
+    {
+      "id": "posco-futurem-lfp-2026-08",
+      "source": "POSCO_FUTUREM_NEWSROOM",
+      "url": "https://www.poscofuturem.com/pr/view.do?num=1039",
+      "title": "포스코퓨처엠 LFP 공급 합의 발표",
+      "published_at": "2026-08-07",
+      "start": "포스코퓨처엠, 드디어 LFP 시장 뚫었다",
+      "end": "목록",
+      "extract": false
+    },
+    {
+      "id": "taihan-2026-q3",
+      "source": "TAIHAN_NEWSROOM",
+      "url": "https://www.taihan.com/en/news/pr/taihanNewsDetail?idx=764",
+      "title": "Taihan 2026 third-quarter results",
+      "published_at": "2026-10-29",
+      "start": "Taihan Reports KRW 152.1 Billion",
+      "end": "Previous",
+      "extract": true
+    }
+  ],
+  "additional_primary_sources": [
+    {"title": "효성중공업 2026년 3분기 IR", "url": "https://www.hyosungheavyindustries.com/kr/company/ir/archive/annual-report", "download": "https://www.hyosungheavyindustries.com/download/5894", "method": "PDF downloaded and text extracted separately"},
+    {"title": "HD현대일렉트릭 2026년 3분기 IR", "url": "https://www.hd-hyundaielectric.com/elect/ko/IR/IRdata1.jsp", "method": "Official download form submitted for 2026_10_27_133004_1.pdf; PDF text extracted separately"},
+    {"title": "삼성SDI·엘앤에프 LFP 계약 발표", "url": "https://www.samsungsdi.co.kr/sdi-now/sdi-news/4821.html?pageIndex=2&pagesize=15"},
+    {"title": "서진시스템 ESS 사업 소개", "url": "https://seojinsystem.net/business/sector.php"}
+  ]
+}

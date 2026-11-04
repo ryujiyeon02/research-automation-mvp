@@ -102,6 +102,17 @@ def filter_grounded_claims(envelope: ClaimsEnvelope, source_text: str) -> Claims
     return ClaimsEnvelope(claims=grounded)
 
 
+def parse_claim_content(content: Any) -> ClaimsEnvelope:
+    """JSON 전체를 감싼 코드 블록만 벗기며 앞뒤 설명문은 허용하지 않습니다."""
+    if isinstance(content, dict):
+        return ClaimsEnvelope.model_validate(content)
+    text = str(content)
+    fenced = re.fullmatch(r"\s*```(?:json)?[ \t]*\r?\n([\s\S]*?)\r?\n```\s*", text)
+    if fenced:
+        text = fenced.group(1)
+    return ClaimsEnvelope.model_validate_json(text)
+
+
 class OllamaClient:
     def __init__(
         self,
@@ -192,10 +203,7 @@ class OllamaClient:
 
         data = response.json()
         content = data["message"]["content"]
-        if isinstance(content, dict):
-            parsed = ClaimsEnvelope.model_validate(content)
-        else:
-            parsed = ClaimsEnvelope.model_validate_json(str(content))
+        parsed = parse_claim_content(content)
         grounded = filter_grounded_claims(parsed, excerpt)
         return ExtractionResult(
             envelope=grounded,

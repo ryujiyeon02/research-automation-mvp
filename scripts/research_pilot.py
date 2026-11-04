@@ -140,7 +140,7 @@ def main():
     args = parser.parse_args()
     settings = load_settings()
     manifest = json.loads(args.manifest.read_text())
-    output = settings.project_root / "data" / "research_runs" / manifest["research_date"]
+    output = settings.project_root / "data" / "research_runs" / manifest.get("run_id", manifest["research_date"])
     output.mkdir(parents=True, exist_ok=True)
     receipt = output / "ingest.json"
     if args.stage == "ingest":

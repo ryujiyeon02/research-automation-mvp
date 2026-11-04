@@ -133,3 +133,19 @@ def test_other_server_errors_do_not_trigger_schema_fallback():
     ):
         client.extract_claims("Higher input costs reduced operating margin.")
     assert len(calls) == 1
+
+
+def test_single_json_code_fence_is_parsed_without_bypassing_schema():
+    from research_automation.llm.ollama import parse_claim_content
+
+    content = ClaimsEnvelope(claims=[make_claim("Costs reduced margins.")]).model_dump_json()
+    assert len(parse_claim_content("```json\n" + content + "\n```").claims) == 1
+    with pytest.raises(ValidationError):
+        parse_claim_content('```json\n{"claims": [{"cause_variable": "costs"}]}\n```')
+
+
+def test_prose_around_json_code_fence_is_rejected():
+    from research_automation.llm.ollama import parse_claim_content
+
+    with pytest.raises(ValidationError):
+        parse_claim_content('Here is my answer:\n```json\n{"claims": []}\n```')
