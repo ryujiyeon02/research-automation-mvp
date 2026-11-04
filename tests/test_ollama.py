@@ -1,6 +1,8 @@
 import json
 
 import httpx
+import pytest
+from pydantic import ValidationError
 
 from research_automation.llm.ollama import (
     OllamaClient,
@@ -79,3 +81,55 @@ def test_ollama_client_uses_json_schema_and_records_usage() -> None:
     assert result.input_tokens == 120
     assert result.output_tokens == 45
     assert result.rejected_claims == 0
+
+
+def test_mlx_without_xgrammar_falls_back_and_keeps_grounding():
+    calls = []
+
+    def handler(request):
+        payload = json.loads(request.content)
+        calls.append(payload)
+        if "format" in payload:
+            return httpx.Response(501, json={"error": "structured output is unavailable"})
+        assert "JSON Schema:" in payload["messages"][0]["content"]
+        content = ClaimsEnvelope(claims=[
+            make_claim("Higher input costs reduced operating margin."),
+            make_claim("Invented evidence not in the source."),
+        ]).model_dump_json()
+        return httpx.Response(200, json={"message": {"content": content}})
+
+    with OllamaClient("qwen3.5:9b", transport=httpx.MockTransport(handler)) as client:
+        result = client.extract_claims("Higher input costs reduced operating margin.")
+        client.extract_claims("Higher input costs reduced operating margin.")
+    assert len(calls) == 3
+    assert result.output_mode == "validated_json"
+    assert len(result.envelope.claims) == 1
+    assert result.rejected_claims == 1
+
+
+def test_schema_fallback_still_rejects_invalid_json():
+    def handler(request):
+        if "format" in json.loads(request.content):
+            return httpx.Response(501, json={"error": "structured output is unavailable"})
+        return httpx.Response(200, json={"message": {"content": "not JSON"}})
+
+    with (
+        OllamaClient("qwen3.5:9b", transport=httpx.MockTransport(handler)) as client,
+        pytest.raises(ValidationError),
+    ):
+        client.extract_claims("Higher input costs reduced operating margin.")
+
+
+def test_other_server_errors_do_not_trigger_schema_fallback():
+    calls = []
+
+    def handler(request):
+        calls.append(request)
+        return httpx.Response(500, json={"error": "model failed"})
+
+    with (
+        OllamaClient("qwen3.5:9b", transport=httpx.MockTransport(handler)) as client,
+        pytest.raises(RuntimeError, match="model failed"),
+    ):
+        client.extract_claims("Higher input costs reduced operating margin.")
+    assert len(calls) == 1

@@ -33,6 +33,7 @@ class ExtractionResult:
     input_tokens: Optional[int]
     output_tokens: Optional[int]
     rejected_claims: int = 0
+    output_mode: str = "json_schema"
 
 
 CAUSAL_MARKERS = (
@@ -113,6 +114,7 @@ class OllamaClient:
             raise ValueError("OLLAMA_MODEL is not configured")
         self.model = model.strip()
         self.base_url = base_url.rstrip("/")
+        self._schema_supported = True
         self._client = httpx.Client(
             base_url=self.base_url,
             timeout=timeout_seconds,
@@ -154,8 +156,28 @@ class OllamaClient:
                 "num_predict": 3_000,
             },
         }
+
+        def use_validated_json() -> None:
+            payload.pop("format", None)
+            payload["messages"][0]["content"] = (
+                SYSTEM_PROMPT + "\nJSON Schema:\n" + json.dumps(CLAIMS_SCHEMA, ensure_ascii=False)
+            )
+
+        if not self._schema_supported:
+            use_validated_json()
         try:
             response = self._client.post("/api/chat", json=payload)
+            if response.status_code == 501:
+                try:
+                    unsupported = response.json().get("error") == "structured output is unavailable"
+                except (ValueError, AttributeError):
+                    unsupported = False
+                if unsupported and "format" in payload:
+                    # 일부 Homebrew MLX 설치본은 xgrammar 없이 배포된다.
+                    # 생성 형식 강제 대신 프롬프트에 스키마를 주고 아래에서 동일하게 검증한다.
+                    self._schema_supported = False
+                    use_validated_json()
+                    response = self._client.post("/api/chat", json=payload)
             response.raise_for_status()
         except httpx.ConnectError as exc:
             raise RuntimeError(
@@ -180,6 +202,7 @@ class OllamaClient:
             input_tokens=data.get("prompt_eval_count"),
             output_tokens=data.get("eval_count"),
             rejected_claims=len(parsed.claims) - len(grounded.claims),
+            output_mode="json_schema" if "format" in payload else "validated_json",
         )
 
 

@@ -1,0 +1,80 @@
+{
+  "research_date": "2026-11-04",
+  "information_cutoff": "2026-11-04T23:14:00+09:00",
+  "report_author": "Codex, using local Ollama extraction and source checks",
+  "human_review_completed": false,
+  "fully_unattended_pipeline": false,
+  "model": {
+    "runtime": "Ollama 0.40.14",
+    "name": "qwen3.5:9b",
+    "digest": "d63f830f28d515fefea546f213fca7a75e9dd5176ef51a6deabc952d1c99a911",
+    "download_bytes": 7639229431,
+    "output_mode": "validated_json",
+    "schema_forced_generation_available": false,
+    "json_schema_validation_enabled": true,
+    "literal_evidence_filter_enabled": true,
+    "max_input_characters_per_document": 2400,
+    "max_requested_claims_per_document": 4,
+    "output_token_limit_per_document": 3000,
+    "prompt_version": "causal-claims-v1-max4-pilot-validated_json"
+  },
+  "http_collection": {
+    "attempted_urls": 7,
+    "stored_document_excerpts": 5,
+    "failed_urls": [
+      "https://www.bls.gov/news.release/archives/jolts_11032026.htm",
+      "https://www.investing.com/news/economy-news/democrat-sweep-adds-new-twist-to-markets-iran-ai-and-debt-worries-4998678"
+    ],
+    "failure_note": "Both returned HTTP 403 in Python; separately read with the web research tool, not passed to local extraction.",
+    "existing_sec_documents_used": 1,
+    "local_document_ids": [10, 15, 11, 12, 13, 6]
+  },
+  "extraction": {
+    "documents_analyzed": 5,
+    "raw_generated_claims": 15,
+    "automatically_rejected_missing_evidence": 1,
+    "grounded_claims_inserted": 14,
+    "rejected_after_codex_semantic_review": 3,
+    "remaining_reported_claims": 11,
+    "data_checked_or_analyst_reviewed_claims": 0,
+    "input_tokens": 4322,
+    "output_tokens": 1930,
+    "usage_scope": "Five successful local extraction calls; excludes smoke tests, rejected schema requests and Codex usage.",
+    "local_claim_id_range": [30, 43],
+    "fed_document_claim_count": 0,
+    "rejections": [
+      {
+        "local_claim_id": 33,
+        "source": "BOK_WEB",
+        "reason": "Combines the original rise in yields with the later reversal and substitutes a bond-price channel; direction and effect are not faithful to the source."
+      },
+      {
+        "local_claim_id": 35,
+        "source": "BEA_WEB",
+        "reason": "Omits that SPR sales are deducted from government consumption and that lower sales explain the quarterly accounting increase."
+      },
+      {
+        "local_claim_id": 36,
+        "source": "BEA_WEB",
+        "reason": "Cause label drops the decrease in SPR sales and effect label drops government scope. Excluded to avoid implying an increase in total consumption or a direct GDP effect."
+      }
+    ],
+    "limitations": [
+      "Literal evidence matching does not verify the truth, sign, scope, horizon or transmission channel of a claim.",
+      "Horizon and confidence are model annotations, not independently measured causal timing or truth probabilities.",
+      "The remaining BEA item describes a component contribution, not identified economic causality.",
+      "Extraction used selected excerpts, not exhaustive reading of entire filings."
+    ]
+  },
+  "market_collection": {
+    "meritz_daily_bars_saved": 14,
+    "kis_daily_bars_saved": 4,
+    "domestic_dates": ["2026-11-02", "2026-11-03", "2026-11-04"],
+    "us_dates": ["2026-11-02", "2026-11-03"],
+    "domestic_return_crosscheck": "unresolved_previous_close_discrepancy",
+    "orders_submitted": 0
+  },
+  "ecos_fred_cross_validation_completed": false,
+  "local_evidence_directory": "data/research_runs/2026-11-04/",
+  "installation_note": "Homebrew installed updated dependencies including Python 3.15 and automatically removed the old Python 3.14 keg. Project uv environment still passed its tests."
+}

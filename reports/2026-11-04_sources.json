@@ -1,0 +1,86 @@
+{
+  "research_date": "2026-11-04",
+  "sources": [
+    {
+      "id": "fed-2026-10-28",
+      "source": "FED_WEB",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+      "title": "FOMC statement — October 28, 2026",
+      "published_at": "2026-10-28",
+      "start": "October 28, 2026",
+      "end": "For media inquiries",
+      "extract": true
+    },
+    {
+      "id": "bok-2026-10-22",
+      "source": "BOK_WEB",
+      "url": "https://www.bok.or.kr/portal/bbs/P0000559/view.do?menuNo=200690&nttId=11065823",
+      "title": "통화정책방향 — 2026년 10월 22일",
+      "published_at": "2026-10-22",
+      "start": "□ 금융통화위원회는",
+      "end": "목록",
+      "extract": true
+    },
+    {
+      "id": "bea-gdp-2026-q3-advance",
+      "source": "BEA_WEB",
+      "url": "https://www.bea.gov/news/2026/gdp-advance-estimate-3rd-quarter-2026",
+      "title": "GDP advance estimate — third quarter 2026",
+      "published_at": "2026-10-29",
+      "start": "Real gross domestic product",
+      "end": "Related Data Tables",
+      "extract": true
+    },
+    {
+      "id": "amd-2026-q3-ex99-1",
+      "source": "AMD_IR",
+      "url": "https://ir.amd.com/financial-information/sec-filings/content/0000002488-26-000188/q32026991.htm",
+      "title": "AMD third-quarter 2026 results — 8-K Exhibit 99.1",
+      "published_at": "2026-11-03",
+      "start": "AMD Reports Third Quarter 2026 Financial Results",
+      "end": "Recent Highlights",
+      "company_id": "0000002488",
+      "filing_type": "8-K_EX99.1",
+      "extract": true
+    },
+    {
+      "id": "bls-jolts-2026-09",
+      "source": "BLS_WEB",
+      "url": "https://www.bls.gov/news.release/archives/jolts_11032026.htm",
+      "title": "JOLTS — September 2026, released November 3",
+      "published_at": "2026-11-03",
+      "start": "The number of job openings was little changed",
+      "end": "Establishment Size Class",
+      "extract": false
+    },
+    {
+      "id": "abc-ap-midterms-2026-11-04",
+      "source": "ABC_AP_NEWS",
+      "url": "https://www.abc.net.au/news/2026-11-04/us-midterm-election-results-2026/107235570",
+      "title": "US midterm election results — ABC using AP calls",
+      "published_at": "2026-11-04",
+      "start": "State of play",
+      "end": "In this article",
+      "extract": false
+    },
+    {
+      "id": "reuters-markets-2026-11-04",
+      "source": "REUTERS_VIA_INVESTING",
+      "url": "https://www.investing.com/news/economy-news/democrat-sweep-adds-new-twist-to-markets-iran-ai-and-debt-worries-4998678",
+      "title": "Democratic sweep adds new twist to markets' Iran, AI and debt worries",
+      "published_at": "2026-11-04",
+      "start": "LONDON, Nov 4 (Reuters)",
+      "end": "Democratic sweep adds new twist",
+      "extract": true
+    }
+  ],
+  "existing_documents": [
+    {
+      "document_id": 6,
+      "label": "Apple FY2026 10-K",
+      "extract": true,
+      "start": "Products Gross Margin\nProducts gross margin",
+      "end": "Selling, General and Administrative\nSelling, general"
+    }
+  ]
+}

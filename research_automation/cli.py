@@ -103,12 +103,18 @@ def command_extract_claims(settings: Settings, args: argparse.Namespace) -> None
     ) as client:
         result = client.extract_claims(document["raw_text"], max_chars=args.max_chars)
 
+    prompt_version = (
+        PROMPT_VERSION if result.output_mode == "json_schema"
+        else PROMPT_VERSION + "-validated-json"
+    )
+    print(f"output_mode={result.output_mode}", file=sys.stderr)
+
     inserted = db.insert_claims(
         settings.database_path,
         document_id=args.document_id,
         claims=result.envelope.claims,
         model=settings.ollama_model,
-        prompt_version=PROMPT_VERSION,
+        prompt_version=prompt_version,
     )
     db.log_llm_usage(
         settings.database_path,
@@ -116,7 +122,7 @@ def command_extract_claims(settings: Settings, args: argparse.Namespace) -> None
         model=settings.ollama_model,
         operation="extract_causal_claims",
         document_id=args.document_id,
-        prompt_version=PROMPT_VERSION,
+        prompt_version=prompt_version,
         input_tokens=result.input_tokens,
         output_tokens=result.output_tokens,
     )
