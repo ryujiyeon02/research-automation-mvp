@@ -1,0 +1,17 @@
+{
+  "research_date": "2026-11-05",
+  "run_id": "2026-11-05-bea-trade-followup",
+  "purpose": "11월 4일 보고서에서 누락한 국제무역 발표의 사후 수집. 당시 수집 완료로 소급하지 않음.",
+  "sources": [
+    {
+      "id": "bea-trade-2026-09",
+      "source": "BEA_WEB",
+      "url": "https://www.bea.gov/news/2026/us-international-trade-goods-and-services-september-2026",
+      "title": "U.S. International Trade in Goods and Services, September 2026",
+      "published_at": "2026-11-04T08:30:00-05:00",
+      "start": "The U.S. Census Bureau and the U.S. Bureau of Economic Analysis announced today",
+      "end": "All statistics referenced",
+      "extract": false
+    }
+  ]
+}
