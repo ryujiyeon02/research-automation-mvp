@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-05",
+  "status": "experimental_incomplete",
+  "review_version": "causal-review-v16",
+  "model": "qwen3.5:9b",
+  "expectation_author": "Codex; development regression cases, not independent expert validation",
+  "native_evaluation": {
+    "run_id": "20261105T062734570350Z",
+    "review_version": "causal-review-v15",
+    "cases": 33,
+    "matches": 31,
+    "false_acceptances": 0,
+    "false_rejections": 1,
+    "positive_holds": 0
+  },
+  "archived_response_replay": {
+    "version": "causal-review-v16",
+    "new_model_calls": 0,
+    "replayed_requests": 24,
+    "cases": 33,
+    "exact_matches": 32,
+    "filter_matches": 33
+  },
+  "actual_document_execution": {
+    "document_id": 12,
+    "max_chars": 2400,
+    "raw_claims": 6,
+    "missing_evidence": 2,
+    "grounded_candidates": 4,
+    "supported": 0,
+    "rejected": 4,
+    "held": 0,
+    "inserted": 0,
+    "output_mode": true
+  },
+  "limitation": "Over-rejection remains on the actual AMD document. Automatic semantic validation is not solved.",
+  "default_storage_mode": "candidate_only",
+  "automatic_tests_passed": 92
+}

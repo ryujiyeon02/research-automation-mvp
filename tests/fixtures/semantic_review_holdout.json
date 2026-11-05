@@ -1,0 +1,225 @@
+{
+  "label_source": "Codex-authored synthetic holdout fixed before seeing v2 evaluation results; not an independent benchmark",
+  "groups": [
+    {
+      "id": "unseen_scope_and_comparison",
+      "source": "Lower freight costs relative to the previous quarter increased operating margin in the European manufacturing division. Other divisions reported no change.",
+      "cases": [
+        {
+          "id": "qualified_positive",
+          "expected": "supported",
+          "claim": {
+            "cause_variable": "Lower freight costs relative to the previous quarter",
+            "effect_variable": "European manufacturing division operating margin",
+            "direction": "increase",
+            "transmission_channel": "Lower freight costs increased the division operating margin",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.99,
+            "evidence_text": "Lower freight costs relative to the previous quarter increased operating margin in the European manufacturing division."
+          }
+        },
+        {
+          "id": "omitted_cause_decrease",
+          "expected": "rejected",
+          "claim": {
+            "cause_variable": "Freight costs",
+            "effect_variable": "European manufacturing division operating margin",
+            "direction": "increase",
+            "transmission_channel": "Lower freight costs increased the division operating margin",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.99,
+            "evidence_text": "Lower freight costs relative to the previous quarter increased operating margin in the European manufacturing division."
+          }
+        },
+        {
+          "id": "broadened_effect_scope",
+          "expected": "rejected",
+          "claim": {
+            "cause_variable": "Lower freight costs relative to the previous quarter",
+            "effect_variable": "Operating margin",
+            "direction": "increase",
+            "transmission_channel": "Lower freight costs increased the division operating margin",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.99,
+            "evidence_text": "Lower freight costs relative to the previous quarter increased operating margin in the European manufacturing division."
+          }
+        },
+        {
+          "id": "wrong_effect_direction",
+          "expected": "rejected",
+          "claim": {
+            "cause_variable": "Lower freight costs relative to the previous quarter",
+            "effect_variable": "European manufacturing division operating margin",
+            "direction": "decrease",
+            "transmission_channel": "Lower freight costs increased the division operating margin",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.99,
+            "evidence_text": "Lower freight costs relative to the previous quarter increased operating margin in the European manufacturing division."
+          }
+        }
+      ]
+    },
+    {
+      "id": "unseen_korean_multiple_paths",
+      "source": "원자재 가격 상승으로 배터리 부문의 영업이익률이 하락했으나, ESS 부문은 제품 구성 개선으로 영업이익률이 상승했다.",
+      "cases": [
+        {
+          "id": "battery_positive",
+          "expected": "supported",
+          "claim": {
+            "cause_variable": "원자재 가격 상승",
+            "effect_variable": "배터리 부문의 영업이익률",
+            "direction": "decrease",
+            "transmission_channel": "원자재 가격 상승으로 배터리 부문 영업이익률이 낮아짐",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.99,
+            "evidence_text": "원자재 가격 상승으로 배터리 부문의 영업이익률이 하락했으나, ESS 부문은 제품 구성 개선으로 영업이익률이 상승했다."
+          }
+        },
+        {
+          "id": "ess_positive",
+          "expected": "supported",
+          "claim": {
+            "cause_variable": "제품 구성 개선",
+            "effect_variable": "ESS 부문의 영업이익률",
+            "direction": "increase",
+            "transmission_channel": "제품 구성 개선으로 ESS 부문 영업이익률이 높아짐",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.99,
+            "evidence_text": "원자재 가격 상승으로 배터리 부문의 영업이익률이 하락했으나, ESS 부문은 제품 구성 개선으로 영업이익률이 상승했다."
+          }
+        },
+        {
+          "id": "crossed_paths",
+          "expected": "rejected",
+          "claim": {
+            "cause_variable": "원자재 가격 상승",
+            "effect_variable": "ESS 부문의 영업이익률",
+            "direction": "increase",
+            "transmission_channel": "원자재 가격 상승으로 ESS 부문 영업이익률 상승",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.99,
+            "evidence_text": "원자재 가격 상승으로 배터리 부문의 영업이익률이 하락했으나, ESS 부문은 제품 구성 개선으로 영업이익률이 상승했다."
+          }
+        },
+        {
+          "id": "invented_intermediary",
+          "expected": "rejected",
+          "claim": {
+            "cause_variable": "원자재 가격 상승",
+            "effect_variable": "배터리 부문의 영업이익률",
+            "direction": "decrease",
+            "transmission_channel": "금리 상승으로 이자 비용이 증가하여 영업이익률이 낮아짐",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.99,
+            "evidence_text": "원자재 가격 상승으로 배터리 부문의 영업이익률이 하락했으나, ESS 부문은 제품 구성 개선으로 영업이익률이 상승했다."
+          }
+        }
+      ]
+    },
+    {
+      "id": "unseen_condition_and_correlation",
+      "source": "Revenue and interest rates rose in the same month; this report does not establish a causal relationship. If input costs fall next quarter, the company expects its domestic operating margin to improve.",
+      "cases": [
+        {
+          "id": "conditional_positive",
+          "expected": "supported",
+          "claim": {
+            "cause_variable": "Input costs falling next quarter",
+            "effect_variable": "Domestic operating margin",
+            "direction": "increase",
+            "transmission_channel": "Conditional fall in input costs improves domestic operating margin",
+            "horizon": "short",
+            "modality": "conditional",
+            "confidence": 0.99,
+            "evidence_text": "If input costs fall next quarter, the company expects its domestic operating margin to improve."
+          }
+        },
+        {
+          "id": "forecast_as_observed",
+          "expected": "rejected",
+          "claim": {
+            "cause_variable": "Input costs falling next quarter",
+            "effect_variable": "Domestic operating margin",
+            "direction": "increase",
+            "transmission_channel": "Conditional fall in input costs improves domestic operating margin",
+            "horizon": "short",
+            "modality": "observed",
+            "confidence": 0.99,
+            "evidence_text": "If input costs fall next quarter, the company expects its domestic operating margin to improve."
+          }
+        },
+        {
+          "id": "correlation_as_causation",
+          "expected": "rejected",
+          "claim": {
+            "cause_variable": "Higher interest rates",
+            "effect_variable": "Revenue",
+            "direction": "increase",
+            "transmission_channel": "Higher interest rates increased revenue",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.99,
+            "evidence_text": "Revenue and interest rates rose in the same month; this report does not establish a causal relationship."
+          }
+        }
+      ]
+    },
+    {
+      "id": "unseen_possibility_and_denial",
+      "source": "Policy easing may reduce household borrowing costs, but the report finds no evidence that it raised corporate investment.",
+      "cases": [
+        {
+          "id": "possibility_positive",
+          "expected": "supported",
+          "claim": {
+            "cause_variable": "Policy easing",
+            "effect_variable": "Household borrowing costs",
+            "direction": "decrease",
+            "transmission_channel": "Policy easing may reduce household borrowing costs",
+            "horizon": "unknown",
+            "modality": "possible",
+            "confidence": 0.99,
+            "evidence_text": "Policy easing may reduce household borrowing costs, but the report finds no evidence that it raised corporate investment."
+          }
+        },
+        {
+          "id": "possibility_as_observed",
+          "expected": "rejected",
+          "claim": {
+            "cause_variable": "Policy easing",
+            "effect_variable": "Household borrowing costs",
+            "direction": "decrease",
+            "transmission_channel": "Policy easing may reduce household borrowing costs",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.99,
+            "evidence_text": "Policy easing may reduce household borrowing costs, but the report finds no evidence that it raised corporate investment."
+          }
+        },
+        {
+          "id": "denied_investment_link",
+          "expected": "rejected",
+          "claim": {
+            "cause_variable": "Policy easing",
+            "effect_variable": "Corporate investment",
+            "direction": "increase",
+            "transmission_channel": "Policy easing raised corporate investment",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.99,
+            "evidence_text": "Policy easing may reduce household borrowing costs, but the report finds no evidence that it raised corporate investment."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "label_source": "Codex-authored synthetic confirmation cases locked before thinking-probe results; no independent expert labels",
+  "groups": [
+    {
+      "id": "confirmation_same_sign_decreases",
+      "source": "A reduction in grid congestion lowered curtailment at coastal wind farms. Inland plants were unaffected.",
+      "cases": [
+        {
+          "id": "congestion_positive",
+          "expected": "supported",
+          "claim": {
+            "cause_variable": "A reduction in grid congestion",
+            "effect_variable": "Curtailment at coastal wind farms",
+            "direction": "decrease",
+            "transmission_channel": "Less grid congestion lowered coastal wind farm curtailment",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.99,
+            "evidence_text": "A reduction in grid congestion lowered curtailment at coastal wind farms."
+          }
+        },
+        {
+          "id": "congestion_missing_decrease",
+          "expected": "rejected",
+          "claim": {
+            "cause_variable": "Grid congestion",
+            "effect_variable": "Curtailment at coastal wind farms",
+            "direction": "decrease",
+            "transmission_channel": "Less grid congestion lowered coastal wind farm curtailment",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.99,
+            "evidence_text": "A reduction in grid congestion lowered curtailment at coastal wind farms."
+          }
+        },
+        {
+          "id": "congestion_wrong_population",
+          "expected": "rejected",
+          "claim": {
+            "cause_variable": "A reduction in grid congestion",
+            "effect_variable": "Curtailment at inland plants",
+            "direction": "decrease",
+            "transmission_channel": "Less grid congestion lowered coastal wind farm curtailment",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.99,
+            "evidence_text": "A reduction in grid congestion lowered curtailment at coastal wind farms."
+          }
+        },
+        {
+          "id": "congestion_wrong_direction",
+          "expected": "rejected",
+          "claim": {
+            "cause_variable": "A reduction in grid congestion",
+            "effect_variable": "Curtailment at coastal wind farms",
+            "direction": "increase",
+            "transmission_channel": "Less grid congestion lowered coastal wind farm curtailment",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.99,
+            "evidence_text": "A reduction in grid congestion lowered curtailment at coastal wind farms."
+          }
+        }
+      ]
+    },
+    {
+      "id": "confirmation_korean_forecast",
+      "source": "회사 측은 다음 분기 금리 하락이 국내 ESS 프로젝트의 조달 비용을 낮출 것으로 전망했다. 다만 이것이 수주 증가로 이어진다는 근거는 제시하지 않았다.",
+      "cases": [
+        {
+          "id": "ess_forecast_positive",
+          "expected": "supported",
+          "claim": {
+            "cause_variable": "다음 분기 금리 하락",
+            "effect_variable": "국내 ESS 프로젝트의 조달 비용",
+            "direction": "decrease",
+            "transmission_channel": "금리 하락으로 국내 ESS 프로젝트 조달 비용이 낮아질 전망",
+            "horizon": "short",
+            "modality": "forecast",
+            "confidence": 0.99,
+            "evidence_text": "회사 측은 다음 분기 금리 하락이 국내 ESS 프로젝트의 조달 비용을 낮출 것으로 전망했다."
+          }
+        },
+        {
+          "id": "ess_forecast_as_observed",
+          "expected": "rejected",
+          "claim": {
+            "cause_variable": "다음 분기 금리 하락",
+            "effect_variable": "국내 ESS 프로젝트의 조달 비용",
+            "direction": "decrease",
+            "transmission_channel": "금리 하락으로 국내 ESS 프로젝트 조달 비용이 낮아질 전망",
+            "horizon": "short",
+            "modality": "observed",
+            "confidence": 0.99,
+            "evidence_text": "회사 측은 다음 분기 금리 하락이 국내 ESS 프로젝트의 조달 비용을 낮출 것으로 전망했다."
+          }
+        },
+        {
+          "id": "ess_unsupported_orders",
+          "expected": "rejected",
+          "claim": {
+            "cause_variable": "조달 비용 하락",
+            "effect_variable": "ESS 수주",
+            "direction": "increase",
+            "transmission_channel": "조달 비용 하락으로 수주 증가",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.99,
+            "evidence_text": "회사 측은 다음 분기 금리 하락이 국내 ESS 프로젝트의 조달 비용을 낮출 것으로 전망했다. 다만 이것이 수주 증가로 이어진다는 근거는 제시하지 않았다."
+          }
+        }
+      ]
+    },
+    {
+      "id": "confirmation_multiple_paths",
+      "source": "Rising grid fees lowered the onshore division's margin; the offshore division's margin rose because maintenance costs fell.",
+      "cases": [
+        {
+          "id": "offshore_positive",
+          "expected": "supported",
+          "claim": {
+            "cause_variable": "Lower maintenance costs",
+            "effect_variable": "Offshore division margin",
+            "direction": "increase",
+            "transmission_channel": "Lower maintenance costs raised the offshore division margin",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.99,
+            "evidence_text": "Rising grid fees lowered the onshore division's margin; the offshore division's margin rose because maintenance costs fell."
+          }
+        },
+        {
+          "id": "offshore_crossed_path",
+          "expected": "rejected",
+          "claim": {
+            "cause_variable": "Rising grid fees",
+            "effect_variable": "Offshore division margin",
+            "direction": "increase",
+            "transmission_channel": "Rising grid fees raised offshore division margin",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.99,
+            "evidence_text": "Rising grid fees lowered the onshore division's margin; the offshore division's margin rose because maintenance costs fell."
+          }
+        }
+      ]
+    }
+  ]
+}

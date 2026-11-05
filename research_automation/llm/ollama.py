@@ -12,15 +12,21 @@ from pydantic import BaseModel
 from research_automation.llm.audit import Audit
 from research_automation.models import ClaimsEnvelope
 
-PROMPT_VERSION = "causal-claims-v1"
+PROMPT_VERSION = "causal-claims-v2"
 
 SYSTEM_PROMPT = """당신은 경제·기업 문서의 인과 주장 추출기입니다.
 문서 작성자가 명시적으로 서술한 원인과 결과만 추출하세요.
 상식이나 외부지식으로 누락된 중간 경로를 보충하지 마세요.
 각 관계에는 입력 문서에 실제 존재하는 짧은 근거 문장을 그대로 포함하세요.
+원인·결과 변수와 전달 경로는 원문의 언어와 핵심 표현을 유지하세요.
+원인 변수 이름 자체에 원문이 명시한 증가·감소·수준, 조건과 비교 기준을 포함하세요.
+결과 변수에는 국가·부문·지표 범위와 필요한 비교 기준(전년 동기 등)을 보존하세요.
+사상 최대·강한 수요 같은 수준 표현을 증가·감소로 바꾸어 추론하지 마세요.
+다른 필드의 설명으로 불완전한 변수 이름을 보충하지 마세요.
 단순 동시 발생이나 상관관계는 인과관계로 바꾸지 마세요.
 인과 주장이 없으면 claims를 빈 배열로 반환하세요.
 direction과 horizon이 불명확하면 unknown을 사용하세요.
+발표 분기나 비교 분기만으로 인과 전달 시차를 추정하지 마세요.
 modality는 실제 발생한 서술은 observed, 전망은 forecast, 가능성은 possible,
 명시적 조건문은 conditional, 불확실성을 강조하면 uncertain로 분류하세요.
 confidence는 문장 내 인과 표현이 얼마나 명시적인지에 대한 점수이며 진실 확률이 아닙니다.
@@ -202,8 +208,12 @@ class OllamaClient:
     def generate_json(
         self, system: str, text: str, schema: type[BaseModel], operation: str, version: str,
         context_size: int = 8_192,
+        max_output_tokens: int = 3_000,
+        thinking: bool = False,
+        sampling_options: Optional[Dict[str, Any]] = None,
     ) -> JsonResult:
         audit = Audit(self.audit_dir, operation, self.model, version, text)
+        audit.save(base_url=self.base_url)
         self.last_audit_path = audit.path
         payload = {
             "model": self.model,
@@ -212,16 +222,23 @@ class OllamaClient:
                 {"role": "user", "content": text},
             ],
             "stream": False,
-            "think": False,
+            "think": thinking,
             "format": schema.model_json_schema(),
             "options": {
                 "temperature": 0,
+                "presence_penalty": 0.0,
+                "repeat_penalty": 1.0,
                 "num_ctx": context_size,
                 # 긴 공시에서 여러 관계가 추출되면 1,500 토큰 안에서 JSON이
                 # 중간에 잘릴 수 있다. 로컬 추론이므로 완결성을 우선한다.
-                "num_predict": 3_000,
+                "num_predict": max_output_tokens,
             },
         }
+        if sampling_options:
+            allowed = {"temperature", "top_p", "top_k", "min_p", "presence_penalty", "repeat_penalty", "seed"}
+            if not set(sampling_options) <= allowed:
+                raise ValueError("Unsupported sampling option")
+            payload["options"].update(sampling_options)
 
         def use_validated_json() -> None:
             payload.pop("format", None)

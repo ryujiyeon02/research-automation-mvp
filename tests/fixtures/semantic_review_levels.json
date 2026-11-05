@@ -1,0 +1,59 @@
+{
+  "label_source": "Codex-authored expectations: one replay of an actual AMD model candidate and two synthetic level/delta controls; not independent expert labels",
+  "groups": [
+    {
+      "id": "actual_amd_record_level",
+      "source": "AMD delivers record quarter as Data Center segment revenue grows 97% year-over-year, driven by record sales of AMD Instinct GPUs and AMD EPYC CPUs",
+      "cases": [
+        {
+          "id": "actual_record_sales_candidate",
+          "expected": "supported",
+          "claim": {
+            "cause_variable": "record sales of AMD Instinct GPUs and AMD EPYC CPUs",
+            "effect_variable": "Data Center segment revenue grows 97% year-over-year",
+            "direction": "increase",
+            "transmission_channel": "driven by",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.95,
+            "evidence_text": "Data Center segment revenue grows 97% year-over-year, driven by record sales of AMD Instinct GPUs and AMD EPYC CPUs"
+          }
+        }
+      ]
+    },
+    {
+      "id": "level_with_explicit_delta",
+      "source": "Lower record sales reduced segment revenue.",
+      "cases": [
+        {
+          "id": "missing_delta_despite_record_level",
+          "expected": "rejected",
+          "claim": {
+            "cause_variable": "Record sales",
+            "effect_variable": "Segment revenue",
+            "direction": "decrease",
+            "transmission_channel": "Lower record sales reduced segment revenue",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.9,
+            "evidence_text": "Lower record sales reduced segment revenue."
+          }
+        },
+        {
+          "id": "complete_level_and_delta",
+          "expected": "supported",
+          "claim": {
+            "cause_variable": "Lower record sales",
+            "effect_variable": "Segment revenue",
+            "direction": "decrease",
+            "transmission_channel": "Lower record sales reduced segment revenue",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.9,
+            "evidence_text": "Lower record sales reduced segment revenue."
+          }
+        }
+      ]
+    }
+  ]
+}
