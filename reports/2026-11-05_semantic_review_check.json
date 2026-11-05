@@ -1,0 +1,131 @@
+{
+  "date": "2026-11-05",
+  "review_version": "causal-review-v1",
+  "model": "qwen3.5:9b",
+  "model_digest": "d63f830f28d515fefea546f213fca7a75e9dd5176ef51a6deabc952d1c99a911",
+  "run_id": "20261105T041930593112Z",
+  "completed_at": "2026-11-05T04:23:19.637095+00:00",
+  "expectation_author": "Codex; not an independent expert benchmark",
+  "case_count": 7,
+  "matching_expected_status": 4,
+  "usage_including_invalid_generation": {
+    "input_tokens": 4978,
+    "output_tokens": 3835,
+    "generation_responses": 4,
+    "http_attempts": 5
+  },
+  "results": [
+    {
+      "group": "synthetic_direction",
+      "case": "correct_direction",
+      "expected": "supported",
+      "actual": "supported",
+      "matches_expected": true,
+      "checks": {
+        "cause_effect": "supported",
+        "direction": "supported",
+        "scope": "supported",
+        "qualifiers": "supported",
+        "modality": "supported",
+        "channel": "supported"
+      }
+    },
+    {
+      "group": "synthetic_direction",
+      "case": "reversed_cause_effect",
+      "expected": "rejected",
+      "actual": "rejected",
+      "matches_expected": true,
+      "checks": {
+        "cause_effect": "contradicted",
+        "direction": "contradicted",
+        "scope": "supported",
+        "qualifiers": "contradicted",
+        "modality": "contradicted",
+        "channel": "contradicted"
+      }
+    },
+    {
+      "group": "bok_2026_10_22",
+      "case": "historical_claim_33",
+      "expected": "rejected",
+      "actual": "rejected",
+      "matches_expected": true,
+      "checks": {
+        "cause_effect": "supported",
+        "direction": "contradicted",
+        "scope": "supported",
+        "qualifiers": "contradicted",
+        "modality": "supported",
+        "channel": "contradicted"
+      }
+    },
+    {
+      "group": "bok_2026_10_22",
+      "case": "corrected_bok_control",
+      "expected": "supported",
+      "actual": "held",
+      "matches_expected": false,
+      "checks": {
+        "cause_effect": "supported",
+        "direction": "supported",
+        "scope": "supported",
+        "qualifiers": "supported",
+        "modality": "supported",
+        "channel": "contradicted"
+      }
+    },
+    {
+      "group": "bea_2026_q3",
+      "case": "historical_claim_35",
+      "expected": "rejected",
+      "actual": "rejected",
+      "matches_expected": true,
+      "checks": {
+        "cause_effect": "supported",
+        "direction": "supported",
+        "scope": "supported",
+        "qualifiers": "supported",
+        "modality": "supported",
+        "channel": "contradicted"
+      }
+    },
+    {
+      "group": "bea_2026_q3",
+      "case": "historical_claim_36",
+      "expected": "rejected",
+      "actual": "supported",
+      "matches_expected": false,
+      "checks": {
+        "cause_effect": "supported",
+        "direction": "supported",
+        "scope": "supported",
+        "qualifiers": "supported",
+        "modality": "supported",
+        "channel": "supported"
+      }
+    },
+    {
+      "group": "bea_2026_q3",
+      "case": "corrected_bea_control",
+      "expected": "supported",
+      "actual": "rejected",
+      "matches_expected": false,
+      "checks": {
+        "cause_effect": "supported",
+        "direction": "supported",
+        "scope": "contradicted",
+        "qualifiers": "supported",
+        "modality": "supported",
+        "channel": "supported"
+      }
+    }
+  ],
+  "limitations": [
+    "Only seven selected regression cases; no accuracy estimate for new documents.",
+    "Historical claim 36 was supported despite the prior conservative rejection.",
+    "The reviewer also rejected or held two intended positive controls.",
+    "Some rejection rationales themselves misread the source."
+  ],
+  "default_policy": "Archive candidates and decisions only; no automatic insertion into causal_claims."
+}

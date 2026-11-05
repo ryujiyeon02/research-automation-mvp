@@ -1,0 +1,129 @@
+{
+  "label_source": "Codex-authored expectations; small regression sample, not an independent benchmark",
+  "groups": [
+    {
+      "id": "synthetic_direction",
+      "provenance": "Codex-authored synthetic test, not a historical model response",
+      "source": "Rising energy prices increased manufacturing costs.",
+      "cases": [
+        {
+          "id": "correct_direction",
+          "expected": "supported",
+          "claim": {
+            "cause_variable": "Rising energy prices",
+            "effect_variable": "Manufacturing costs",
+            "direction": "increase",
+            "transmission_channel": "Energy price increases raised manufacturing costs",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.95,
+            "evidence_text": "Rising energy prices increased manufacturing costs."
+          }
+        },
+        {
+          "id": "reversed_cause_effect",
+          "expected": "rejected",
+          "claim": {
+            "cause_variable": "Higher manufacturing costs",
+            "effect_variable": "Energy prices",
+            "direction": "increase",
+            "transmission_channel": "Manufacturing cost increases raised energy prices",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.95,
+            "evidence_text": "Rising energy prices increased manufacturing costs."
+          }
+        }
+      ]
+    },
+    {
+      "id": "bok_2026_10_22",
+      "source_url": "https://www.bok.or.kr/portal/bbs/P0000559/view.do?menuNo=200690&nttId=11065823",
+      "source": "국고채금리는 중동사태 악화 및 국제유가 상승, 주요국 국채금리 급등 등의 영향으로 크게 높아졌다가 국고채 수급개선 기대 등으로 상승폭이 상당 부분 되돌려졌다.",
+      "cases": [
+        {
+          "id": "historical_claim_33",
+          "provenance": "Saved historical claim 33, rejected by Codex on 2026-11-04",
+          "expected": "rejected",
+          "claim": {
+            "cause_variable": "주요국 국채금리 급등",
+            "effect_variable": "국고채 수급 및 가격 변동 (상승폭 축소)",
+            "direction": "decrease",
+            "transmission_channel": "외부 금리 상승이 국내 채권 수요를 감소시켜 가격 상승을 억제함",
+            "horizon": "short",
+            "modality": "observed",
+            "confidence": 0.9,
+            "evidence_text": "주요국 국채금리 급등 등의 영향으로 크게 높아졌다가 국고채 수급개선 기대 등으로 상승폭이 상당 부분 되돌려졌다"
+          }
+        },
+        {
+          "id": "corrected_bok_control",
+          "provenance": "Codex-authored control using the same source",
+          "expected": "supported",
+          "claim": {
+            "cause_variable": "주요국 국채금리 급등",
+            "effect_variable": "국고채금리",
+            "direction": "increase",
+            "transmission_channel": "주요국 국채금리 급등이 국고채금리를 높인 영향",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.95,
+            "evidence_text": "주요국 국채금리 급등 등의 영향으로 크게 높아졌다가 국고채 수급개선 기대 등으로 상승폭이 상당 부분 되돌려졌다"
+          }
+        }
+      ]
+    },
+    {
+      "id": "bea_2026_q3",
+      "source_url": "https://www.bea.gov/news/2026/gdp-advance-estimate-3rd-quarter-2026",
+      "source": "Within government spending, the increase was more than accounted for by federal government spending, led by nondefense consumption expenditures. The pattern of nondefense spending primarily reflected sales of crude oil from the Strategic Petroleum Reserve, based on data from the U.S. Department of Energy. Within the National Economic Accounts, sales are deducted from government consumption expenditures. In the third quarter, sales from the Strategic Petroleum Reserve were less than sales in the second quarter, resulting in an increase in consumption expenditures. Because the oil sold by the government is reflected as an increase in other components of GDP, there is no direct effect on GDP.",
+      "cases": [
+        {
+          "id": "historical_claim_35",
+          "provenance": "Saved historical claim 35, rejected by Codex on 2026-11-04",
+          "expected": "rejected",
+          "claim": {
+            "cause_variable": "Sales of crude oil from the Strategic Petroleum Reserve",
+            "effect_variable": "Nondefense consumption expenditures increase",
+            "direction": "increase",
+            "transmission_channel": "Government sales deduction adjustment",
+            "horizon": "short",
+            "modality": "observed",
+            "confidence": 0.9,
+            "evidence_text": "The pattern of nondefense spending primarily reflected sales of crude oil from the Strategic Petroleum Reserve"
+          }
+        },
+        {
+          "id": "historical_claim_36",
+          "provenance": "Saved historical claim 36, conservatively rejected by Codex on 2026-11-04",
+          "expected": "rejected",
+          "claim": {
+            "cause_variable": "Sales from the Strategic Petroleum Reserve in the third quarter",
+            "effect_variable": "Consumption expenditures increase",
+            "direction": "increase",
+            "transmission_channel": "Decrease in sales volume compared to previous quarter",
+            "horizon": "short",
+            "modality": "observed",
+            "confidence": 0.9,
+            "evidence_text": "In the third quarter, sales from the Strategic Petroleum Reserve were less than sales in the second quarter, resulting in an increase in consumption expenditures"
+          }
+        },
+        {
+          "id": "corrected_bea_control",
+          "provenance": "Codex-authored control using the same source",
+          "expected": "supported",
+          "claim": {
+            "cause_variable": "Lower third-quarter Strategic Petroleum Reserve oil sales relative to the second quarter",
+            "effect_variable": "Government nondefense consumption expenditures",
+            "direction": "increase",
+            "transmission_channel": "Sales are deducted from government consumption expenditures",
+            "horizon": "unknown",
+            "modality": "observed",
+            "confidence": 0.95,
+            "evidence_text": "In the third quarter, sales from the Strategic Petroleum Reserve were less than sales in the second quarter, resulting in an increase in consumption expenditures"
+          }
+        }
+      ]
+    }
+  ]
+}

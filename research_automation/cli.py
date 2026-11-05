@@ -14,7 +14,8 @@ from research_automation.collectors.sec_edgar import (
     load_browser_filings,
 )
 from research_automation.config import Settings, load_settings
-from research_automation.llm.ollama import PROMPT_VERSION, OllamaClient, result_as_json
+from research_automation.llm.ollama import PROMPT_VERSION, OllamaClient
+from research_automation.llm.review import REVIEW_VERSION, extract_reviewed_claims
 
 
 def _forms(value: str) -> List[str]:
@@ -100,22 +101,31 @@ def command_extract_claims(settings: Settings, args: argparse.Namespace) -> None
     with OllamaClient(
         model=settings.ollama_model,
         base_url=settings.ollama_base_url,
+        audit_dir=settings.project_root / "data" / "llm_runs",
     ) as client:
-        result = client.extract_claims(document["raw_text"], max_chars=args.max_chars)
+        result, reviewed = extract_reviewed_claims(
+            client, document["raw_text"], max_chars=args.max_chars,
+            source_reference={key: document[key] for key in (
+                "id", "source", "source_document_id", "url", "content_hash",
+            )},
+        )
 
     prompt_version = (
         PROMPT_VERSION if result.output_mode == "json_schema"
         else PROMPT_VERSION + "-validated-json"
     )
+    prompt_version += "-" + REVIEW_VERSION
     print(f"output_mode={result.output_mode}", file=sys.stderr)
 
+    # Pilot evaluation found false acceptance. Model support alone must not publish by default.
+    store_candidates = getattr(args, "store_model_supported", False)
     inserted = db.insert_claims(
         settings.database_path,
         document_id=args.document_id,
-        claims=result.envelope.claims,
+        claims=reviewed.envelope.claims,
         model=settings.ollama_model,
         prompt_version=prompt_version,
-    )
+    ) if store_candidates else 0
     db.log_llm_usage(
         settings.database_path,
         provider="ollama",
@@ -126,8 +136,25 @@ def command_extract_claims(settings: Settings, args: argparse.Namespace) -> None
         input_tokens=result.input_tokens,
         output_tokens=result.output_tokens,
     )
-    print(result_as_json(result))
+    db.log_llm_usage(
+        settings.database_path, provider="ollama", model=settings.ollama_model,
+        operation="review_causal_claims", document_id=args.document_id,
+        prompt_version=REVIEW_VERSION, input_tokens=reviewed.input_tokens,
+        output_tokens=reviewed.output_tokens,
+    )
+    print(json.dumps({
+        "model_supported_candidates": reviewed.envelope.model_dump()["claims"],
+        "storage_mode": "reported_claim" if store_candidates else "candidate_only",
+        "inserted": inserted,
+        "review_audit": str(reviewed.audit_path),
+    }, ensure_ascii=False, indent=2))
+    print(f"review_audit={reviewed.audit_path}", file=sys.stderr)
+    for status in ("rejected", "held"):
+        count = sum(item["status"] == status for item in reviewed.decisions)
+        print(f"semantic_{status}={count}", file=sys.stderr)
     print(f"Inserted {inserted} new claims", file=sys.stderr)
+    if not store_candidates:
+        print("Candidate-only mode: model judgments were archived, not added to causal_claims", file=sys.stderr)
     if result.rejected_claims:
         print(
             f"Rejected {result.rejected_claims} claims whose evidence was not found in the input",
@@ -203,6 +230,10 @@ def build_parser() -> argparse.ArgumentParser:
     )
     extract_parser.add_argument("--document-id", type=int, required=True)
     extract_parser.add_argument("--max-chars", type=int, default=12_000)
+    extract_parser.add_argument(
+        "--store-model-supported", action="store_true",
+        help="모델 통과 후보를 미검증 reported_claim으로 DB 저장 (기본: 파일 보존만)",
+    )
     extract_parser.set_defaults(handler=command_extract_claims)
 
     meritz_daily_parser = subparsers.add_parser(

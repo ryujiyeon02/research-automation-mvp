@@ -14,7 +14,14 @@
 관련 문단 선택
       │
       ▼
-Ollama 구조화 추출 ──────── causal_claims
+Ollama 구조화 추출 → 응답 원본 보존 → 근거 문구 검사
+      │
+      ▼
+별도 Ollama 의미 검토 → 인용문 검사 → 제외 / 보류 기록
+      │
+      ▼
+후보 파일 보존 (기본)
+명시적으로 DB 반영 선택 ─── causal_claims (reported_claim)
       │                         │
       │                         ├─ 원문 근거
       │                         ├─ 출처·발표시각
@@ -53,6 +60,7 @@ ECOS/FRED/KRX/증권사 수치 ─ observations / market_prices
 - `confidence`는 모델 확신도이며 진실 확률이 아닙니다.
 - 최신 지표 값과 수치 계산은 공식 API와 결정론적 코드로 처리합니다.
 - 검증 상태는 `reported_claim → data_checked → analyst_reviewed` 순으로 승격합니다.
+- 모델 의미 검토 통과만으로 상태를 승격하지 않습니다. [검토 단계와 한계](CLAIM_REVIEW.md)를 참고하세요.
 
 ## 단계별 확장
 

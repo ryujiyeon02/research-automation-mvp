@@ -16,6 +16,7 @@ from bs4 import BeautifulSoup, UnicodeDammit
 from research_automation import db
 from research_automation.config import load_settings
 from research_automation.llm import ollama
+from research_automation.llm.review import REVIEW_VERSION, extract_reviewed_claims
 
 
 def excerpt(text, start=None, end=None):
@@ -90,13 +91,14 @@ def ingest(manifest, settings, output):
     return saved
 
 
-def extract_claims(items, settings, output):
+def extract_claims(items, settings, output, store_model_supported=False):
     # 이번 실행의 출력 개수 제한을 프롬프트 버전에도 기록한다.
     ollama.SYSTEM_PROMPT += "\n중요한 경제 인과 주장만 최대 4개 추출하세요."
     prompt_version = ollama.PROMPT_VERSION + "-max4-pilot"
     results = []
     with ollama.OllamaClient(
-        model=settings.ollama_model, base_url=settings.ollama_base_url, timeout_seconds=300
+        model=settings.ollama_model, base_url=settings.ollama_base_url, timeout_seconds=300,
+        audit_dir=settings.project_root / "data" / "llm_runs",
     ) as client:
         for item in items:
             if not item.get("extract") or "document_id" not in item:
@@ -104,11 +106,21 @@ def extract_claims(items, settings, output):
             document = db.get_document(settings.database_path, item["document_id"])
             text = excerpt(document["raw_text"], item.get("start"), item.get("end"))
             try:
-                result = client.extract_claims(text, max_chars=2_400)
-                actual_prompt_version = prompt_version + "-" + result.output_mode
+                result, reviewed = extract_reviewed_claims(
+                    client, text, max_chars=2_400,
+                    source_reference={key: document[key] for key in (
+                        "id", "source", "source_document_id", "url", "content_hash",
+                    )},
+                )
+                actual_prompt_version = prompt_version + "-" + result.output_mode + "-" + REVIEW_VERSION
                 inserted = db.insert_claims(
-                    settings.database_path, item["document_id"], result.envelope.claims,
+                    settings.database_path, item["document_id"], reviewed.envelope.claims,
                     settings.ollama_model, actual_prompt_version,
+                ) if store_model_supported else 0
+                db.log_llm_usage(
+                    settings.database_path, "ollama", settings.ollama_model,
+                    "review_causal_claims", item["document_id"], REVIEW_VERSION,
+                    reviewed.input_tokens, reviewed.output_tokens,
                 )
                 db.log_llm_usage(
                     settings.database_path, "ollama", settings.ollama_model,
@@ -120,11 +132,15 @@ def extract_claims(items, settings, output):
                     "label": item["label"],
                     "output_mode": result.output_mode,
                     "inserted": inserted,
+                    "storage_mode": "reported_claim" if store_model_supported else "candidate_only",
                     "grounded_claims": len(result.envelope.claims),
+                    "model_supported_claims": len(reviewed.envelope.claims),
+                    "semantic_decisions": reviewed.decisions,
+                    "audit_path": str(reviewed.audit_path),
                     "rejected_missing_evidence": result.rejected_claims,
                     "input_tokens": result.input_tokens,
                     "output_tokens": result.output_tokens,
-                    "claims": result.envelope.model_dump()["claims"],
+                    "claims": reviewed.envelope.model_dump()["claims"],
                 }
             except (httpx.HTTPError, ValueError, RuntimeError) as error:
                 record = {"document_id": item["document_id"], "label": item["label"], "error_type": type(error).__name__}
@@ -137,6 +153,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("manifest", type=Path)
     parser.add_argument("--stage", choices=("ingest", "extract"), required=True)
+    parser.add_argument("--store-model-supported", action="store_true")
     args = parser.parse_args()
     settings = load_settings()
     manifest = json.loads(args.manifest.read_text())
@@ -146,7 +163,7 @@ def main():
     if args.stage == "ingest":
         receipt.write_text(json.dumps(ingest(manifest, settings, output), ensure_ascii=False, indent=2))
     else:
-        extract_claims(json.loads(receipt.read_text()), settings, output)
+        extract_claims(json.loads(receipt.read_text()), settings, output, args.store_model_supported)
 
 
 if __name__ == "__main__":
